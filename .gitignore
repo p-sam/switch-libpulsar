@@ -1,0 +1,4 @@
+/build
+/out
+*.pyc
+__pycache__
