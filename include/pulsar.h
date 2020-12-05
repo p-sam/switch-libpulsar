@@ -1,3 +1,7 @@
+/**
+ * @file
+ * @brief Main header meant to be included in user projects
+ */
 #pragma once
 
 #ifdef __cplusplus

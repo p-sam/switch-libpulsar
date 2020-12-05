@@ -1,8 +1,13 @@
+/**
+ * @file
+ * @brief Sound archive init
+ */
 #pragma once
 
 #include <pulsar/archive/archive.h>
 #include <pulsar/bfsar/bfsar_internal.h>
 
+/// Sound archive method categories
 typedef enum {
 	PLSR_BFSARCategoryType_Init = 0,
 	PLSR_BFSARCategoryType_IdList,
@@ -13,16 +18,19 @@ typedef enum {
 	PLSR_BFSARCategoryType_File,
 } PLSR_BFSARCategoryType;
 
+/// String tree header information
 typedef struct {
 	u32 rootNodeIndex;
 	u32 nodeCount;
 } PLSR_BFSARStringTreeInfo;
 
+/// String tree (patricia trie)
 typedef struct {
-	u32 offset;
-	PLSR_BFSARStringTreeInfo info;
+	u32 offset; ///< Section start offset in sound archive
+	PLSR_BFSARStringTreeInfo info; ///< Cached tree information
 } PLSR_BFSARStringTree;
 
+/// Sound archive file
 typedef struct {
 	PLSR_Archive ar;
 
@@ -41,5 +49,8 @@ typedef struct {
 	PLSR_ArchiveTable fileTable;
 } PLSR_BFSAR;
 
+/// @copydoc plsrArchiveOpen
 PLSR_RC plsrBFSAROpen(const char* path, PLSR_BFSAR* out);
+
+/// @copydoc plsrArchiveClose
 void plsrBFSARClose(PLSR_BFSAR* bfsar);

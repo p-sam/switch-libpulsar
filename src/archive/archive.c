@@ -134,7 +134,7 @@ PLSR_RC plsrArchiveReadTableBlock(const PLSR_Archive* ar, const PLSR_ArchiveTabl
 	return PLSR_RC_OK;
 }
 
-PLSR_RC plsrArchiveReadListEntries(const PLSR_Archive* ar, const PLSR_ArchiveList* list, u32 startIndex, u32 count, void* outEntries, u32* outReadCount) {
+PLSR_RC plsrArchiveListReadEntries(const PLSR_Archive* ar, const PLSR_ArchiveList* list, u32 startIndex, u32 count, void* outEntries, u32* outReadCount) {
 	u32 toRead = 0;
 	if(startIndex < list->info.count) {
 		u32 maxCount = list->info.count - startIndex;
@@ -154,7 +154,7 @@ PLSR_RC plsrArchiveReadListEntries(const PLSR_Archive* ar, const PLSR_ArchiveLis
 
 PLSR_RC plsrArchiveListGetEntry(const PLSR_Archive* ar, const PLSR_ArchiveList* list, u32 index, void* out) {
 	u32 read;
-	PLSR_RC_TRY(plsrArchiveReadListEntries(ar, list, index, 1, out, &read));
+	PLSR_RC_TRY(plsrArchiveListReadEntries(ar, list, index, 1, out, &read));
 
 	if(read == 0) {
 		return PLSR_ResultType_NotFound;

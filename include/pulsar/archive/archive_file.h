@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief Shared archive file handle management
+ * @note These should not be needed directly, use the wrapped archive functions instead
+ */
 #pragma once
 
 #include <pulsar/types.h>

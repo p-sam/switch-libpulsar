@@ -24,10 +24,12 @@ OUT			:=	lib
 #---------------------------------------------------------------------------------
 ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIC -ftls-model=local-exec
 
+DEFINES	:=	-D__SWITCH__
 CFLAGS	:=	-g -Wall -Werror \
 			-ffunction-sections \
 			-fdata-sections \
 			$(ARCH) \
+			$(DEFINES) \
 			$(BUILD_CFLAGS)
 
 CFLAGS	+=	$(INCLUDE)
@@ -92,7 +94,7 @@ dist-bin: all
 	@tar --exclude=*~ -cjf lib$(TARGET).tar.bz2 include lib
 
 dist-src:
-	@tar --exclude=*~ -cjf lib$(TARGET)-src.tar.bz2 include src Makefile
+	@tar --exclude=*~ -cjf lib$(TARGET)-src.tar.bz2 include src Makefile deps.mk *.md
 
 dist: dist-src dist-bin
 
