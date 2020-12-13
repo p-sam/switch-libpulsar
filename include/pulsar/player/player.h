@@ -71,7 +71,7 @@ NX_INLINE void plsrPlayerWaitNextFrame(void) {
 }
 
 /// De-initialize player
-void plsrPlayerDestroy(void);
+void plsrPlayerExit(void);
 
 /// Play a loaded sound
 PLSR_RC plsrPlayerPlay(PLSR_PlayerSoundId id);

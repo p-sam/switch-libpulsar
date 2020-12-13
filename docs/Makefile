@@ -4,11 +4,12 @@ BUILD		:= build
 
 export DOCS_DIR		:= $(BUILD)
 export DOCS_VERSION	:= $(shell git describe --dirty --always --tags)
-export DOCS_CONF	:= Doxyfile
+export DOCS_CONF	:= $(CURDIR)/Doxyfile
+export DOCS_EXAMPLE	:= $(PLSR_DIR)/examples
 export DOCS_INPUT	:= $(addprefix $(PLSR_DIR), $(PLSR_INCLUDES) README.md LICENSE.md)
 export DOCS_MAIN	:= $(addprefix $(PLSR_DIR), README.md)
 export DOCS_DEFINES	:= __SWITCH__
-DOCS_DEFINES += $(shell grep -ihR '\#define _' '../include' $(DOCS_INPUT) | sed 's/\#define //g; s/ /=/g')
+DOCS_DEFINES += $(shell grep -ihR '\#define _' $(DOCS_INPUT) | sed 's/\#define //g; s/ /=/g')
 
 export THEME_VER	:= 95d0f34acb
 export THEME_URL	:= "https://github.com/jl-wynen/that_style/archive/$(THEME_VER).tar.gz"
@@ -32,8 +33,9 @@ endif
 
 all: docs
 
-clean: 
-	rm -rf $(DOCS_DIR)
+clean:
+	@echo clean ...
+	@rm -rf $(DOCS_DIR)
 
 theme: $(THEME_DIR)
 
@@ -42,7 +44,7 @@ docs: $(THEME_DIR)
 
 docs-watch: docs
 	@echo Watching for changes...
-	@while inotifywait -rq $(CURDIR)/Doxyfile $(DOCS_INPUT) -e modify,move,create,delete; do $(MAKE) docs; done
+	@while inotifywait -rq $(DOCS_CONF) $(DOCS_INPUT) -e modify,move,create,delete; do $(MAKE) docs; done
 
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@

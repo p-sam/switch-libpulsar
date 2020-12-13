@@ -1,5 +1,7 @@
 /build
 /lib
-*.bz2
+*.xz
 *.pyc
 __pycache__
+/docs/build
+/examples/build

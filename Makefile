@@ -42,7 +42,7 @@ ASFLAGS	:=	-g $(ARCH)
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS := $(PORTLIBS) $(LIBNX)
+LIBDIRS	:= $(PORTLIBS) $(LIBNX)
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
@@ -62,10 +62,16 @@ export OFILES 	:=	$(OFILES_SRC)
 export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(dir)) \
 			$(foreach dir,$(LIBDIRS),-I$(dir)/include)
 
-.PHONY: clean all
+.PHONY: clean all examples docs
 
 #---------------------------------------------------------------------------------
 all: debug release
+
+examples: release
+	@$(MAKE) -C examples
+
+docs:
+	@$(MAKE) -C docs
 
 $(OUT):
 	@[ -d $@ ] || mkdir -p $@
@@ -86,22 +92,32 @@ $(OUT)/lib$(TARGET)d.a : $(OUT) $(SOURCES) $(INCLUDES)
 	--no-print-directory -C $(BUILD)/debug \
 	-f $(TOPDIR)/Makefile
 
-debug: $(OUT)/lib$(TARGET).a
+debug: $(OUT)/lib$(TARGET)d.a
 
-release: $(OUT)/lib$(TARGET)d.a
+release: $(OUT)/lib$(TARGET).a
 
 dist-bin: all
-	@tar --exclude=*~ -cjf lib$(TARGET).tar.bz2 include lib
+	@tar --exclude=*~ -cJf lib$(TARGET).tar.xz include lib
 
 dist-src:
-	@tar --exclude=*~ -cjf lib$(TARGET)-src.tar.bz2 include src Makefile deps.mk *.md
+	@tar --exclude=*~ -cJf lib$(TARGET)-src.tar.xz include src Makefile deps.mk *.md
 
-dist: dist-src dist-bin
+dist-docs: docs
+	@tar --exclude=*~ -cJf lib$(TARGET)-docs.tar.xz -C docs/build html
+
+dist-examples: examples
+	@tar --exclude=*~ -cJf lib$(TARGET)-examples.tar.xz examples/build/*.nro examples/*.c
+
+dist: dist-bin dist-src dist-docs dist-examples
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) lib *.bz2
+	@rm -fr $(BUILD) lib *.xz
+
+mrproper: clean
+	@$(MAKE) -C examples clean
+	@$(MAKE) -C docs clean
 
 #---------------------------------------------------------------------------------
 else
