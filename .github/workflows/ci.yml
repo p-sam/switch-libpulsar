@@ -13,8 +13,6 @@ jobs:
           free -m
       - name: checkout - project
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
       - name: build
         # DKP docker images are not up to date yet with libnx
         # so we skip building examples for now
