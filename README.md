@@ -1,4 +1,6 @@
-# Pulsar
+Pulsar
+================
+[![CI](https://github.com/p-sam/switch-libpulsar/workflows/CI/badge.svg?branch=develop)](https://github.com/p-sam/switch-libpulsar/actions?query=workflow%3ACI)
 
 Switch homebrew library to load, parse, and play sounds from BFSAR files and related file formats
 
@@ -6,7 +8,8 @@ This library is in development and may not implement complete parsing of each fo
 
 ## Links
 
-// TODO
+* [Github repository](https://github.com/p-sam/switch-libpulsar)
+* [Online documentation](https://p-sam.github.io/switch-libpulsar/)
 
 ## Including in your project
 
