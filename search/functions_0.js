@@ -56,6 +56,8 @@ var searchData=
   ['plsrplayerloadsoundbyname',['plsrPlayerLoadSoundByName',['../player__load__lookup_8h.html#aa79191828ac82bb79620f3a03387a49e',1,'player_load_lookup.h']]],
   ['plsrplayerloadwave',['plsrPlayerLoadWave',['../player__load_8h.html#a0d895ed68884e8b73c1c134ed43235da',1,'player_load.h']]],
   ['plsrplayerplay',['plsrPlayerPlay',['../player_8h.html#a10019dd5f46a758438294d846edc929b',1,'player.h']]],
+  ['plsrplayersetpitch',['plsrPlayerSetPitch',['../player_8h.html#a48cd87dcb8a628cdc042bb56315e98a3',1,'player.h']]],
+  ['plsrplayersetvolume',['plsrPlayerSetVolume',['../player_8h.html#a453769f04fe853979baf7b489ef497c2',1,'player.h']]],
   ['plsrplayerstop',['plsrPlayerStop',['../player_8h.html#a406ca6d8829a9031627ba930f428ea6c',1,'player.h']]],
   ['plsrplayerwaitnextframe',['plsrPlayerWaitNextFrame',['../player_8h.html#afcf745ae7cf5531a0c060aba8122924f',1,'player.h']]]
 ];
