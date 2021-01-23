@@ -32,7 +32,11 @@ static void _exampleExit() {
 	plsrPlayerExit();
 }
 
-static PLSR_RC _examplePlay() {
+static PLSR_RC _examplePlay(float pitch, float volume) {
+	// Set the requested pitch and volume factors
+	plsrPlayerSetPitch(g_soundId, pitch);
+	plsrPlayerSetVolume(g_soundId, volume);
+
 	// Play the previously loaded sound
 	return plsrPlayerPlay(g_soundId);
 }
@@ -49,9 +53,11 @@ int main() {
 
 	// Initialize resources used in this example
 	PLSR_RC initRC = _exampleInit();
-	printf("_exampleInit() = 0x%X\n", initRC);
+	printf("_exampleInit() = 0x%X\n\n", initRC);
 
 	if(R_SUCCEEDED(initRC)) {
+		printf("Change pitch with the left stick Y axis\n");
+		printf("Change volume with the right stick Y axis\n");
 		printf("Press A to play a sound\n");
 	}
 	printf("Press + to play exit\n\n");
@@ -66,7 +72,16 @@ int main() {
 		}
 
 		if(R_SUCCEEDED(initRC) && (kDown & HidNpadButton_A)) {
-			printf("_examplePlay() = 0x%X\n", _examplePlay());
+			HidAnalogStickState analog_stick_l = padGetStickPos(&pad, 0);
+			HidAnalogStickState analog_stick_r = padGetStickPos(&pad, 1);
+			float pitch = 1.0f + (float)analog_stick_l.y / (float)JOYSTICK_MAX;
+			float volume = 1.0f + (float)analog_stick_r.y / (float)JOYSTICK_MAX;
+
+			if(pitch <= 0.05f) {
+				pitch = 0.05f;
+			}
+
+			printf("_examplePlay(%f, %f) = 0x%X\n", pitch, volume, _examplePlay(pitch, volume));
 		}
 
 		consoleUpdate(NULL);
