@@ -53,21 +53,21 @@ int main() {
 
 	// Initialize resources used in this example
 	PLSR_RC initRC = _exampleInit();
-	printf("_exampleInit() = 0x%X\n\n", initRC);
+	printf("_exampleInit() = 0x%08X\n\n", initRC);
+	printf("Press + to exit\n");
 
 	if(R_SUCCEEDED(initRC)) {
 		printf("Change pitch with the left stick Y axis\n");
 		printf("Change volume with the right stick Y axis\n");
 		printf("Press A to play a sound\n");
 	}
-	printf("Press + to play exit\n\n");
 
 	// Main loop
-	while (appletMainLoop()) {
+	while(appletMainLoop()) {
 		padUpdate(&pad);
 		u64 kDown = padGetButtonsDown(&pad);
 
-		if (kDown & HidNpadButton_Plus) {
+		if(kDown & HidNpadButton_Plus) {
 			break;
 		}
 
@@ -81,7 +81,7 @@ int main() {
 				pitch = 0.05f;
 			}
 
-			printf("_examplePlay(%f, %f) = 0x%X\n", pitch, volume, _examplePlay(pitch, volume));
+			printf("_examplePlay(%f, %f) = 0x%08X\n", pitch, volume, _examplePlay(pitch, volume));
 		}
 
 		consoleUpdate(NULL);
