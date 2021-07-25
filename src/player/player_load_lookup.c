@@ -13,7 +13,9 @@
 #include <pulsar/bfwsd/bfwsd_sound_data.h>
 #include <pulsar/player/player_load.h>
 
-PLSR_RC _loadWaveFromWAR(const PLSR_BFWAR* bfwar, u32 waveIndex, PLSR_PlayerSoundId* out) {
+#define _LOCAL_RC_MAKE(X) PLSR_RC_MAKE(Player, LoadLookup, X)
+
+static PLSR_RC _loadWaveFromWAR(const PLSR_BFWAR* bfwar, u32 waveIndex, PLSR_PlayerSoundId* out) {
 	PLSR_BFWARFileInfo waveFileInfo;
 	PLSR_RC_TRY(plsrBFWARFileGet(bfwar, waveIndex, &waveFileInfo));
 
@@ -25,7 +27,7 @@ PLSR_RC _loadWaveFromWAR(const PLSR_BFWAR* bfwar, u32 waveIndex, PLSR_PlayerSoun
 	return rc;
 }
 
-PLSR_RC _loadWaveFromWSD(const PLSR_BFSAR* bfsar, const PLSR_BFWSD* bfwsd, u32 waveIndex, PLSR_PlayerSoundId* out) {
+static PLSR_RC _loadWaveFromWSD(const PLSR_BFSAR* bfsar, const PLSR_BFWSD* bfwsd, u32 waveIndex, PLSR_PlayerSoundId* out) {
 	PLSR_BFWSDWaveId waveId;
 
 	PLSR_BFWSDSoundDataInfo soundDataInfo;
@@ -36,7 +38,7 @@ PLSR_RC _loadWaveFromWSD(const PLSR_BFSAR* bfsar, const PLSR_BFWSD* bfwsd, u32 w
 
 	PLSR_RC_TRY(plsrBFWSDWaveIdListGetEntry(bfwsd, noteInfo.waveIdIndex, &waveId));
 	if(waveId.archiveItemId.type != PLSR_BFSARItemType_WaveArchive) {
-		return PLSR_ResultType_NotFound;
+		return _LOCAL_RC_MAKE(NotFound);
 	}
 
 	PLSR_BFSARWaveArchiveInfo waveArchiveInfo;
@@ -51,38 +53,51 @@ PLSR_RC _loadWaveFromWSD(const PLSR_BFSAR* bfsar, const PLSR_BFWSD* bfwsd, u32 w
 	return rc;
 }
 
+static PLSR_RC _loadWaveFromArchive(const PLSR_BFSAR* bfsar, const PLSR_BFSARSoundInfo* soundInfo, const PLSR_BFSARFileInfo* soundFileInfo, PLSR_PlayerSoundId* out) {
+	PLSR_BFWSD bfwsd;
+
+	switch(soundFileInfo->type) {
+		case PLSR_BFSARFileInfoType_External:
+			PLSR_RC_TRY(plsrBFWSDOpen(soundFileInfo->external.path, &bfwsd));
+			break;
+		case PLSR_BFSARFileInfoType_Internal:
+			PLSR_RC_TRY(plsrBFWSDOpenInside(&bfsar->ar, soundFileInfo->internal.offset, &bfwsd));
+			break;
+		default:
+			return _LOCAL_RC_MAKE(Unsupported);
+	}
+
+	PLSR_RC rc = _loadWaveFromWSD(bfsar, &bfwsd, soundInfo->wave.index, out);
+	plsrBFWSDClose(&bfwsd);
+
+	return rc;
+}
+
+static PLSR_RC _loadStreamFromArchive(const PLSR_BFSAR* bfsar, const PLSR_BFSARSoundInfo* soundInfo, const PLSR_BFSARFileInfo* soundFileInfo, PLSR_PlayerSoundId* out) {
+	// UNIMPLEMENTED: BFSTM
+	return _LOCAL_RC_MAKE(Unsupported);
+}
+
 PLSR_RC plsrPlayerLoadSoundByItemId(const PLSR_BFSAR* bfsar, PLSR_BFSARItemId itemId, PLSR_PlayerSoundId* out) {
 	if(itemId.type != PLSR_BFSARItemType_Sound) {
-		return PLSR_ResultType_Unsupported;
+		return _LOCAL_RC_MAKE(Unsupported);
 	}
 
 	PLSR_BFSARSoundInfo soundInfo;
 	PLSR_RC_TRY(plsrBFSARSoundGet(bfsar, itemId.index, &soundInfo));
 
-	// TODO: Stream
-	if(soundInfo.type != PLSR_BFSARSoundType_Wave) {
-		return PLSR_ResultType_Unsupported;
-	}
-
 	PLSR_BFSARFileInfo soundFileInfo;
 	PLSR_RC_TRY(plsrBFSARFileScan(bfsar, soundInfo.fileIndex, &soundFileInfo));
+	PLSR_RC_TRY(plsrBFSARFileInfoNormalize(bfsar, &soundFileInfo));
 
-	PLSR_BFWSD bfwsd;
-	switch(soundFileInfo.type) {
-		case PLSR_BFSARFileInfoType_External:
-			PLSR_RC_TRY(plsrBFWSDOpen(soundFileInfo.external.path, &bfwsd));
-			break;
-		case PLSR_BFSARFileInfoType_Internal:
-			PLSR_RC_TRY(plsrBFWSDOpenInside(&bfsar->ar, soundFileInfo.internal.offset, &bfwsd));
-			break;
+	switch(soundInfo.type) {
+		case PLSR_BFSARSoundType_Wave:
+			return _loadWaveFromArchive(bfsar, &soundInfo, &soundFileInfo, out);
+		case PLSR_BFSARSoundType_Stream:
+			return _loadStreamFromArchive(bfsar, &soundInfo, &soundFileInfo, out);
 		default:
-			return PLSR_ResultType_Unsupported;
+			return _LOCAL_RC_MAKE(Unsupported);
 	}
-
-	PLSR_RC rc = _loadWaveFromWSD(bfsar, &bfwsd, soundInfo.wave.index, out);
-	plsrBFWSDClose(&bfwsd);
-
-	return rc;
 }
 
 PLSR_RC plsrPlayerLoadSoundByName(const PLSR_BFSAR* bfsar, const char* name, PLSR_PlayerSoundId* out) {
