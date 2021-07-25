@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Shared archive file handle management
+ * @brief Shared archive file management
  * @note These should not be needed directly, use the wrapped archive functions instead
  */
 #pragma once
@@ -11,14 +11,17 @@
 
 typedef struct {
 	FILE* f;
+	char* context;
 	size_t refs;
 } PLSR_ArchiveSharedReader;
 
 typedef const PLSR_ArchiveSharedReader* PLSR_ArchiveFileHandle;
 
-PLSR_ArchiveFileHandle plsrArchiveFileOpen(const char* path);
+PLSR_ArchiveFileHandle plsrArchiveFileOpen(const char* path, bool storePath);
+
 void plsrArchiveFileClose(PLSR_ArchiveFileHandle handle);
 PLSR_ArchiveFileHandle plsrArchiveFileCloneHandle(PLSR_ArchiveFileHandle handle);
+bool plsrArchiveFileRelativePath(PLSR_ArchiveFileHandle handle, const char* path, char* out, size_t size);
 
 NX_INLINE bool plsrArchiveFileRead(PLSR_ArchiveFileHandle handle, void* out, size_t size) {
 	return handle && fread(out, size, 1, handle->f) == 1;

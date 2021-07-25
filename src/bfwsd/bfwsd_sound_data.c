@@ -3,7 +3,7 @@
 #define _LOCAL_TRY(X) PLSR_RC_LTRY(BFWSD, SoundData, X)
 #define _LOCAL_RC_MAKE(X) PLSR_RC_MAKE(BFWSD, SoundData, X)
 
-PLSR_RC _BFWSDReadSoundInfo(const PLSR_BFWSD* bfwsd, u32 offset, PLSR_BFWSDSoundDataInfo* out) {
+static PLSR_RC _BFWSDReadSoundInfo(const PLSR_BFWSD* bfwsd, u32 offset, PLSR_BFWSDSoundDataInfo* out) {
 	_PLSR_BFWSDSoundInfoEntry _soundInfoEntry;
 	u32 tmp;
 	u32 sendOffset = 0;

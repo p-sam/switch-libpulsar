@@ -83,3 +83,16 @@ PLSR_RC plsrBFSARFileScan(const PLSR_BFSAR* bfsar, u32 index, PLSR_BFSARFileInfo
 
 	return PLSR_RC_OK;
 }
+
+PLSR_RC plsrBFSARFileInfoNormalize(const PLSR_BFSAR* bfsar, PLSR_BFSARFileInfo* soundFileInfo) {
+	if(soundFileInfo->type != PLSR_BFSARFileInfoType_External) {
+		return PLSR_RC_OK;
+	}
+
+	char tmp[sizeof(soundFileInfo->external.path)];
+	strncpy(tmp, soundFileInfo->external.path, sizeof(tmp));
+
+	_LOCAL_TRY(plsrArchiveRelativePath(&bfsar->ar, tmp, soundFileInfo->external.path, sizeof(soundFileInfo->external.path)));
+
+	return PLSR_RC_OK;
+}

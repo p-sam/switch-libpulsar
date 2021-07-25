@@ -1,7 +1,7 @@
 #include <pulsar/archive/archive.h>
 
-PLSR_RC plsrArchiveOpen(const char* path, PLSR_Archive* out) {
-	PLSR_ArchiveFileHandle handle = plsrArchiveFileOpen(path);
+PLSR_RC plsrArchiveOpenEx(const char* path, PLSR_Archive* out, bool storePath) {
+	PLSR_ArchiveFileHandle handle = plsrArchiveFileOpen(path, storePath);
 	if(handle == PLSR_INVALID_ARCHIVE_FILE_HANDLE) {
 		return PLSR_ResultType_FileRead;
 	}

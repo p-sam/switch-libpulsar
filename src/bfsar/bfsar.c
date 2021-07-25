@@ -110,7 +110,7 @@ static PLSR_RC _BFSARInit(PLSR_BFSAR* bfsar) {
 PLSR_RC plsrBFSAROpen(const char* path, PLSR_BFSAR* out) {
 	memset(out, 0, sizeof(PLSR_BFSAR));
 
-	PLSR_RC rc = plsrArchiveOpen(path, &out->ar);
+	PLSR_RC rc = plsrArchiveOpenEx(path, &out->ar, true);
 
 	if(PLSR_RC_SUCCEEDED(rc)) {
 		rc = _BFSARInit(out);

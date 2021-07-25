@@ -77,8 +77,14 @@ typedef struct {
 	u32 offset; ///< Start offset of the archive in the file
 } PLSR_Archive;
 
+/// Open from a file at specified path (advanced)
+PLSR_RC plsrArchiveOpenEx(const char* path, PLSR_Archive* out, bool storePath);
+
 /// Open from a file at specified path
-PLSR_RC plsrArchiveOpen(const char* path, PLSR_Archive* out);
+/** @note Path is not stored by default unless specified using plsrArchiveOpenEx() */
+NX_INLINE PLSR_RC plsrArchiveOpen(const char* path, PLSR_Archive* out) {
+	return plsrArchiveOpenEx(path, out, false);
+}
 
 /// Open from inside another archive at specified offset
 PLSR_RC plsrArchiveOpenInside(const PLSR_Archive* ar, u32 offset, PLSR_Archive* out);
@@ -86,9 +92,18 @@ PLSR_RC plsrArchiveOpenInside(const PLSR_Archive* ar, u32 offset, PLSR_Archive* 
 /// Close archive, releasing resources if applicable
 void plsrArchiveClose(PLSR_Archive* ar);
 
+/// Construct path relative to the physical archive file
+/**
+ * - Does not guarantee it exists (but might fail in some cases if it does not)
+ * - Works only if the archive path was stored when opened
+ */
+NX_INLINE PLSR_RC plsrArchiveRelativePath(const PLSR_Archive* ar, const char* path, char* out, size_t size) {
+	return plsrArchiveFileRelativePath(ar->handle, path, out, size) ? PLSR_RC_OK : PLSR_ResultType_NotFound;
+}
+
 /// Read archive contents at the current position
 NX_INLINE PLSR_RC plsrArchiveRead(const PLSR_Archive* ar, void* out, size_t size) {
-	return plsrArchiveFileRead(ar->handle, out, size) ? PLSR_RC_OK : PLSR_ResultType_NotFound;
+	return plsrArchiveFileRead(ar->handle, out, size) ? PLSR_RC_OK : PLSR_ResultType_FileRead;
 }
 
 /// Read archive contents at the specified offset (advanced)

@@ -5,3 +5,4 @@
 __pycache__
 /docs/build
 /examples/build
+/examples/exampleXX-*.c
