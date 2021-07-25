@@ -54,6 +54,9 @@ PLSR_RC plsrBFSARFileGet(const PLSR_BFSAR* bfsar, u32 index, PLSR_BFSARFileInfo*
 /// Similar to plsrBFSARFileGet(), but also scans groups for the requested index in case file is internal and has an invalid location
 PLSR_RC plsrBFSARFileScan(const PLSR_BFSAR* bfsar, u32 index, PLSR_BFSARFileInfo* out);
 
+/// Make sound file information less archive dependent (eg: external path become absolute)
+PLSR_RC plsrBFSARFileInfoNormalize(const PLSR_BFSAR* bfsar, PLSR_BFSARFileInfo* soundFileInfo);
+
 NX_INLINE u32 plsrBFSARFileCount(const PLSR_BFSAR* bfsar) {
 	return bfsar->fileTable.info.count;
 }

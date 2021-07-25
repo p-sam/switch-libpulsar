@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
+#include <unistd.h>
 
 /// Shortcut to get a result type enum from its name
 #define PLSR_RC_MAKE_RESULT_TYPE(RESULT_TYPE) (PLSR_ResultType_ ## RESULT_TYPE)
