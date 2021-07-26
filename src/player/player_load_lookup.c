@@ -11,7 +11,8 @@
 #include <pulsar/bfwsd/bfwsd.h>
 #include <pulsar/bfwsd/bfwsd_wave_id.h>
 #include <pulsar/bfwsd/bfwsd_sound_data.h>
-#include <pulsar/player/player_load.h>
+#include <pulsar/bfstm/bfstm.h>
+#include <pulsar/player/player_load_formats.h>
 
 #define _LOCAL_RC_MAKE(X) PLSR_RC_MAKE(Player, LoadLookup, X)
 
@@ -74,8 +75,23 @@ static PLSR_RC _loadWaveFromArchive(const PLSR_BFSAR* bfsar, const PLSR_BFSARSou
 }
 
 static PLSR_RC _loadStreamFromArchive(const PLSR_BFSAR* bfsar, const PLSR_BFSARSoundInfo* soundInfo, const PLSR_BFSARFileInfo* soundFileInfo, PLSR_PlayerSoundId* out) {
-	// UNIMPLEMENTED: BFSTM
-	return _LOCAL_RC_MAKE(Unsupported);
+	PLSR_BFSTM bfstm;
+
+	switch(soundFileInfo->type) {
+		case PLSR_BFSARFileInfoType_External:
+			PLSR_RC_TRY(plsrBFSTMOpen(soundFileInfo->external.path, &bfstm));
+			break;
+		case PLSR_BFSARFileInfoType_Internal:
+			PLSR_RC_TRY(plsrBFSTMOpenInside(&bfsar->ar, soundFileInfo->internal.offset, &bfstm));
+			break;
+		default:
+			return _LOCAL_RC_MAKE(Unsupported);
+	}
+
+	PLSR_RC rc = plsrPlayerLoadStream(&bfstm, out);
+	plsrBFSTMClose(&bfstm);
+
+	return rc;
 }
 
 PLSR_RC plsrPlayerLoadSoundByItemId(const PLSR_BFSAR* bfsar, PLSR_BFSARItemId itemId, PLSR_PlayerSoundId* out) {

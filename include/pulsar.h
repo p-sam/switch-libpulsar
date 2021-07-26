@@ -36,6 +36,7 @@ extern "C" {
 
 #include <pulsar/player/player.h>
 #include <pulsar/player/player_load.h>
+#include <pulsar/player/player_load_formats.h>
 #include <pulsar/player/player_load_lookup.h>
 
 #endif

@@ -5,16 +5,15 @@
 #pragma once
 
 #include <pulsar/archive/archive.h>
-#include <pulsar/bfwav/bfwav.h>
-#include <pulsar/bfwav/bfwav_info.h>
 
-#define PLSR_PLAYER_SINK_CHANNELS 2
+#define PLSR_PLAYER_MAX_CHANNELS 2
 #define PLSR_PLAYER_INVALID_SOUND NULL
 
 /// Player method categories
 typedef enum {
 	PLSR_PlayerCategoryType_Init = 0,
 	PLSR_PlayerCategoryType_Load,
+	PLSR_PlayerCategoryType_LoadFormats,
 	PLSR_PlayerCategoryType_LoadLookup,
 } PLSR_PlayerCategoryType;
 
@@ -25,12 +24,12 @@ typedef struct {
 	AudioRendererConfig audrenConfig; ///< Audio renderer config (output rate, voices count, ...)
 	int startVoiceId; ///< First renderer voice index to be used by the player (should be `>= 0 && < audrenConfig.num_voices`)
 	int endVoiceId; ///< Last renderer voice index to be used by the player (should be `>= 0 && <= startVoiceId`)
-	const u8 sinkChannels[PLSR_PLAYER_SINK_CHANNELS]; ///< Sink channels the player should use
+	const u8 sinkChannels[PLSR_PLAYER_MAX_CHANNELS]; ///< Sink channels the player should use
 } PLSR_PlayerConfig;
 
 /// Player sound channel
 typedef struct {
-	void* mempool; ///< Pointer to the aligned memory containing audio samples (and adpcm parameters when applicable)
+	void* mempool; ///< Pointer to the aligned memory containing audio samples (and ADPCM parameters when applicable)
 	AudioDriverWaveBuf wavebuf; ///< Audio driver audio buffer struct
 	int mempoolId; ///< Audio driver assigned mempool index
 	int voiceId; ///< Audio driver assigned voice index
@@ -39,7 +38,7 @@ typedef struct {
 /// Player sound
 typedef struct {
 	unsigned int channelCount;
-	PLSR_PlayerSoundChannel channels[PLSR_PLAYER_SINK_CHANNELS];
+	PLSR_PlayerSoundChannel channels[PLSR_PLAYER_MAX_CHANNELS];
 } PLSR_PlayerSound;
 
 /// Player sound ID
