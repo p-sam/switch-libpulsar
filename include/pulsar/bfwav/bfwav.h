@@ -22,7 +22,7 @@ typedef enum {
 	/// 16-bit PCM encoded samples
 	PLSR_BFWAVFormat_PCM_16 = _PLSR_BFWAV_FORMAT_PCM_16,
 
-	/// DSP ADPCM encoded samples (Wave channel info should contain the needed adpcm context to decode samples, see plsrBFWAVReadChannelInfo())
+	/// DSP ADPCM encoded samples (Wave channel info should contain the needed ADPCM context to decode samples, see plsrBFWAVReadChannelInfo())
 	PLSR_BFWAVFormat_DSP_ADPCM = _PLSR_BFWAV_FORMAT_DSP_ADPCM,
 } PLSR_BFWAVFormat;
 

@@ -24,11 +24,11 @@ static const PLSR_PlayerConfig g_default_config = {
 static PLSR_Player* g_instance = NULL;
 
 static PLSR_RC _playerCreate(PLSR_Player* out, const PLSR_PlayerConfig* config) {
-	_LOCAL_NX_TRY(audrvCreate(&out->driver, &config->audrenConfig, PLSR_PLAYER_SINK_CHANNELS));
+	_LOCAL_NX_TRY(audrvCreate(&out->driver, &config->audrenConfig, PLSR_PLAYER_MAX_CHANNELS));
 
 	memcpy(&out->config, config, sizeof(out->config));
 
-	audrvDeviceSinkAdd(&out->driver, AUDREN_DEFAULT_DEVICE_NAME, PLSR_PLAYER_SINK_CHANNELS, config->sinkChannels);
+	audrvDeviceSinkAdd(&out->driver, AUDREN_DEFAULT_DEVICE_NAME, PLSR_PLAYER_MAX_CHANNELS, config->sinkChannels);
 	audrvUpdate(&out->driver);
 
 	if(config->initRenderer) {

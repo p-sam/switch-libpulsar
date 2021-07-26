@@ -99,7 +99,6 @@ PLSR_RC plsrArchiveReadTableHeaderInfo(const PLSR_Archive* ar, u32 offset, PLSR_
 	return PLSR_RC_OK;
 }
 
-
 PLSR_RC plsrArchiveReadTableEntry(const PLSR_Archive* ar, const PLSR_ArchiveTable* table, u16 id, u32 index, PLSR_ArchiveTableEntry* out) {
 	if(table->offset == 0 || index >= table->info.count) {
 		return PLSR_ResultType_NotFound;

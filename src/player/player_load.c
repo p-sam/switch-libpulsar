@@ -7,7 +7,7 @@
 #define _LOCAL_RC_MAKE(X) PLSR_RC_MAKE(Player, Load, X)
 #define _AUDREN_ALIGN(sz) ((sz + (AUDREN_MEMPOOL_ALIGNMENT-1)) &~ (AUDREN_MEMPOOL_ALIGNMENT-1))
 
-static int _playerGetFreeVoiceId(const PLSR_Player* player) {
+static int _getFreeVoiceId(const PLSR_Player* player) {
 	for(int id = player->config.startVoiceId; id <= player->config.endVoiceId; id++) {
 		if(!player->driver.in_voices[id].is_used) {
 			return id;
@@ -17,29 +17,68 @@ static int _playerGetFreeVoiceId(const PLSR_Player* player) {
 	return -1;
 }
 
-static PLSR_RC _playerLoadWave(PLSR_Player* player, const PLSR_BFWAV* bfwav, PLSR_PlayerSoundId* out) {
-	PLSR_BFWAVInfo waveInfo;
+static PLSR_RC _readChannel(const PLSR_PlayerSoundLoadInfo* loadInfo, const PLSR_PlayerSoundLoadChannelLayoutInfo* layoutInfo, size_t dataSize, PLSR_PlayerSound* sound) {
+	for(unsigned int channel = 0; channel < sound->channelCount; channel++) {
+		_LOCAL_TRY(plsrArchiveReadAt(loadInfo->ar, layoutInfo->offsets[channel], sound->channels[channel].mempool, dataSize));
+	}
 
-	PLSR_RC_TRY(plsrBFWAVReadInfo(bfwav, &waveInfo));
+	return PLSR_RC_OK;
+}
 
-	PcmFormat pcmFormat;
-	size_t dataSize;
-	switch(waveInfo.format) {
-		case PLSR_BFWAVFormat_PCM_8:
-			pcmFormat = PcmFormat_Int8;
-			dataSize = waveInfo.sampleCount;
-			break;
-		case PLSR_BFWAVFormat_PCM_16:
-			pcmFormat = PcmFormat_Int16;
-			dataSize = waveInfo.sampleCount * 2;
-			break;
-		case PLSR_BFWAVFormat_DSP_ADPCM:
-			pcmFormat = PcmFormat_Adpcm;
-			dataSize = waveInfo.sampleCount * 8 + 1;
-			dataSize = dataSize / 14 + dataSize % 14;
-			break;
-		default:
-			return _LOCAL_RC_MAKE(Unsupported);
+static PLSR_RC _readBlocks(const PLSR_PlayerSoundLoadInfo* loadInfo, const PLSR_PlayerSoundLoadBlocksLayoutInfo* layoutInfo, size_t dataSize, PLSR_PlayerSound* sound) {
+	u8* channelData[PLSR_PLAYER_MAX_CHANNELS];
+	size_t blockCount = dataSize / layoutInfo->blockSize;
+	size_t lastBlockSize = dataSize - blockCount * layoutInfo->blockSize;
+
+	for(size_t blockReadCount = 0; blockReadCount < blockCount; blockReadCount++) {
+		for(unsigned int channel = 0; channel < loadInfo->channelCount; channel++) {
+			if(blockReadCount == 0) {
+				channelData[channel] = (u8*)sound->channels[channel].mempool;
+			}
+
+			_LOCAL_TRY(plsrArchiveReadAt(
+				loadInfo->ar,
+				layoutInfo->firstBlockOffset + layoutInfo->blockSize * (blockReadCount * loadInfo->channelCount + channel),
+				channelData[channel],
+				layoutInfo->blockSize
+			));
+			channelData[channel] += layoutInfo->blockSize;
+		}
+	}
+
+	if(lastBlockSize != 0) {
+		u32 base = layoutInfo->firstBlockOffset + layoutInfo->blockSize * (blockCount * loadInfo->channelCount);
+		for(unsigned int channel = 0; channel < sound->channelCount; channel++) {
+			_LOCAL_TRY(plsrArchiveReadAt(
+				loadInfo->ar,
+				base + ((lastBlockSize + layoutInfo->lastBlockPadding) * channel),
+				channelData[channel],
+				lastBlockSize
+			));
+		}
+	}
+
+	return PLSR_RC_OK;
+}
+
+static PLSR_RC _loadSoundFromInfo(PLSR_Player* player, const PLSR_PlayerSoundLoadInfo* loadInfo, PLSR_PlayerSoundId* out) {
+	size_t dataSize = loadInfo->dataSize;
+
+	if(dataSize == 0) {
+		switch(loadInfo->pcmFormat) {
+			case PcmFormat_Int8:
+				dataSize = loadInfo->sampleCount;
+				break;
+			case PcmFormat_Int16:
+				dataSize = loadInfo->sampleCount * 2;
+				break;
+			case PcmFormat_Adpcm:
+				dataSize = loadInfo->sampleCount * 8 + 1;
+				dataSize = dataSize / 14 + dataSize % 14;
+				break;
+			default:
+				return _LOCAL_RC_MAKE(Unsupported);
+		}
 	}
 
 	PLSR_PlayerSound* sound = (PLSR_PlayerSound*)malloc(sizeof(PLSR_PlayerSound));
@@ -48,39 +87,39 @@ static PLSR_RC _playerLoadWave(PLSR_Player* player, const PLSR_BFWAV* bfwav, PLS
 	}
 	*out = sound;
 
+	size_t alignedDataSize = _AUDREN_ALIGN(dataSize);
+	size_t alignedAdpcmParametersSize = loadInfo->pcmFormat == PcmFormat_Adpcm ? _AUDREN_ALIGN(sizeof(AudioRendererAdpcmParameters)) : 0;
+	size_t alignedAdpcmContextSize = loadInfo->pcmFormat == PcmFormat_Adpcm ? _AUDREN_ALIGN(sizeof(AudioRendererAdpcmContext)) : 0;
+	size_t mempoolSize = alignedDataSize + alignedAdpcmParametersSize + alignedAdpcmContextSize;
+
 	sound->channelCount = 0;
-	for(unsigned int channel = 0; channel < waveInfo.channelInfoTable.info.count; channel++) {
+	for(unsigned int channel = 0; channel < loadInfo->channelCount && channel < PLSR_PLAYER_MAX_CHANNELS; channel++) {
 		sound->channelCount++;
 
 		memset(&sound->channels[channel].wavebuf, 0, sizeof(AudioDriverWaveBuf));
 		sound->channels[channel].mempool = NULL;
 		sound->channels[channel].mempoolId = -1;
-		sound->channels[channel].voiceId = _playerGetFreeVoiceId(player);
+		sound->channels[channel].voiceId = _getFreeVoiceId(player);
 
 		if(sound->channels[channel].voiceId == -1) {
 			return _LOCAL_RC_MAKE(Memory);
 		}
 
-		if(!audrvVoiceInit(&player->driver, sound->channels[channel].voiceId, 1, pcmFormat, waveInfo.sampleRate)) {
+		if(!audrvVoiceInit(&player->driver, sound->channels[channel].voiceId, 1, loadInfo->pcmFormat, loadInfo->sampleRate)) {
 			return _LOCAL_RC_MAKE(System);
 		}
 
 		audrvVoiceSetDestinationMix(&player->driver, sound->channels[channel].voiceId, AUDREN_FINAL_MIX_ID);
 
-		if(waveInfo.channelInfoTable.info.count == 1) {
-			for(unsigned int i = 0; i < PLSR_PLAYER_SINK_CHANNELS; i++) {
-				audrvVoiceSetMixFactor(&player->driver, sound->channels[channel].voiceId, 0.5f, 0, player->config.sinkChannels[i]);
-			}
-		} else if(sound->channelCount <= PLSR_PLAYER_SINK_CHANNELS) {
-			audrvVoiceSetMixFactor(&player->driver, sound->channels[channel].voiceId, 0.5f, 0, player->config.sinkChannels[sound->channelCount-1]);
-		} else {
-			return _LOCAL_RC_MAKE(Unsupported);
+		for(unsigned int i = 0; i < PLSR_PLAYER_MAX_CHANNELS; i++) {
+			audrvVoiceSetMixFactor(
+				&player->driver,
+				sound->channels[channel].voiceId,
+				loadInfo->channelCount == 1 || i == channel ? 0.5f : 0.0f,
+				0,
+				player->config.sinkChannels[i]
+			);
 		}
-
-		size_t alignedDataSize = _AUDREN_ALIGN(dataSize);
-		size_t alignedAdpcmParametersSize = waveInfo.format == PLSR_BFWAVFormat_DSP_ADPCM ? _AUDREN_ALIGN(sizeof(AudioRendererAdpcmParameters)) : 0;
-		size_t alignedAdpcmContextSize = waveInfo.format == PLSR_BFWAVFormat_DSP_ADPCM ? _AUDREN_ALIGN(sizeof(AudioRendererAdpcmContext)) : 0;
-		size_t mempoolSize = alignedDataSize + alignedAdpcmParametersSize + alignedAdpcmContextSize;
 
 		sound->channels[channel].mempool = memalign(AUDREN_MEMPOOL_ALIGNMENT, mempoolSize);
 
@@ -94,43 +133,49 @@ static PLSR_RC _playerLoadWave(PLSR_Player* player, const PLSR_BFWAV* bfwav, PLS
 
 		sound->channels[channel].wavebuf.data_raw = dataPtr;
 		sound->channels[channel].wavebuf.size = dataSize;
-		sound->channels[channel].wavebuf.end_sample_offset = waveInfo.sampleCount;
+		sound->channels[channel].wavebuf.end_sample_offset = loadInfo->sampleCount;
 
-		PLSR_BFWAVChannelInfo channelInfo;
-		_LOCAL_TRY(plsrBFWAVReadChannelInfo(bfwav, &waveInfo.channelInfoTable, channel, &channelInfo));
+		if(loadInfo->pcmFormat == PcmFormat_Adpcm) {
+			memcpy(adpcmContext, &loadInfo->adpcm[channel].context, sizeof(AudioRendererAdpcmContext));
+			memcpy(adpcmParameters, &loadInfo->adpcm[channel].parameters, sizeof(AudioRendererAdpcmParameters));
 
-		if(waveInfo.format == PLSR_BFWAVFormat_DSP_ADPCM) {
-			// TODO: static assert context libnx = plsr adpcm context
-			adpcmContext->index = channelInfo.adpcmInfo.loop.header;
-			adpcmContext->history0 = channelInfo.adpcmInfo.loop.yn1;
-			adpcmContext->history1 = channelInfo.adpcmInfo.loop.yn2;
 			sound->channels[channel].wavebuf.context_addr = adpcmContext;
 			sound->channels[channel].wavebuf.context_sz = sizeof(AudioRendererAdpcmContext);
-
-			memcpy(adpcmParameters, &channelInfo.adpcmInfo.coeffs[0], sizeof(AudioRendererAdpcmParameters));
 			audrvVoiceSetExtraParams(&player->driver, sound->channels[channel].voiceId, adpcmParameters, sizeof(AudioRendererAdpcmParameters));
 		}
 
-		_LOCAL_TRY(plsrArchiveReadAt(&bfwav->ar, channelInfo.dataOffset, dataPtr, dataSize));
-
-		armDCacheFlush(sound->channels[channel].mempool, mempoolSize);
 		sound->channels[channel].mempoolId = audrvMemPoolAdd(&player->driver, sound->channels[channel].mempool, mempoolSize);
 		audrvMemPoolAttach(&player->driver, sound->channels[channel].mempoolId);
-		audrvVoiceStart(&player->driver, sound->channels[channel].mempoolId);
-		audrvUpdate(&player->driver);
 	}
+
+	switch(loadInfo->layout.type) {
+		case PLSR_PlayerSoundLoadLayout_Channel:
+			_LOCAL_TRY(_readChannel(loadInfo, &loadInfo->layout.channel, dataSize, sound));
+			break;
+		case PLSR_PlayerSoundLoadLayout_Blocks:
+			_LOCAL_TRY(_readBlocks(loadInfo, &loadInfo->layout.blocks, dataSize, sound));
+			break;
+		default:
+			return _LOCAL_RC_MAKE(Unsupported);
+	}
+
+	for(unsigned int channel = 0; channel < sound->channelCount; channel++) {
+		armDCacheFlush(sound->channels[channel].mempool, mempoolSize);
+	}
+
+	audrvUpdate(&player->driver);
 
 	return PLSR_RC_OK;
 }
 
-PLSR_RC plsrPlayerLoadWave(const PLSR_BFWAV* bfwav, PLSR_PlayerSoundId* out) {
+PLSR_RC plsrPlayerLoad(const PLSR_PlayerSoundLoadInfo* loadInfo, PLSR_PlayerSoundId* out) {
 	PLSR_Player* player = plsrPlayerGetInstance();
 	if(player == NULL) {
 		return _LOCAL_RC_MAKE(NotReady);
 	}
 
 	PLSR_PlayerSoundId id = NULL;
-	PLSR_RC rc = _playerLoadWave(player, bfwav, &id);
+	PLSR_RC rc = _loadSoundFromInfo(player, loadInfo, &id);
 
 	if(PLSR_RC_SUCCEEDED(rc)) {
 		*out = id;
