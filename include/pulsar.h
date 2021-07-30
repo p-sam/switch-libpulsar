@@ -32,6 +32,10 @@ extern "C" {
 #include <pulsar/bfwsd/bfwsd_wave_id.h>
 #include <pulsar/bfwsd/bfwsd_sound_data.h>
 
+#include <pulsar/bfstm/bfstm.h>
+#include <pulsar/bfstm/bfstm_info.h>
+#include <pulsar/bfstm/bfstm_channel.h>
+
 #ifdef __SWITCH__
 
 #include <pulsar/player/player.h>

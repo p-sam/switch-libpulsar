@@ -10,3 +10,6 @@
 
 /// Load a sound from a Wave file
 PLSR_RC plsrPlayerLoadWave(const PLSR_BFWAV* bfwav, PLSR_PlayerSoundId* out);
+
+/// Load a sound from a Stream file
+PLSR_RC plsrPlayerLoadStream(const PLSR_BFSTM* bfstm, PLSR_PlayerSoundId* out);

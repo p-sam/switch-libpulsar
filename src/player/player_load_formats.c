@@ -63,4 +63,58 @@ PLSR_RC plsrPlayerLoadWave(const PLSR_BFWAV* bfwav, PLSR_PlayerSoundId* out) {
 	return plsrPlayerLoad(&loadInfo, out);
 }
 
+PLSR_RC plsrPlayerLoadStream(const PLSR_BFSTM* bfstm, PLSR_PlayerSoundId* out) {
+	PLSR_PlayerSoundLoadInfo loadInfo;
+	PLSR_BFSTMInfo streamInfo;
+
+	PLSR_RC_TRY(plsrBFSTMReadInfo(bfstm, &streamInfo));
+	switch(streamInfo.format) {
+		case PLSR_BFSTMFormat_PCM_8:
+			loadInfo.pcmFormat = PcmFormat_Int8;
+			break;
+		case PLSR_BFSTMFormat_PCM_16:
+			loadInfo.pcmFormat = PcmFormat_Int16;
+			break;
+		case PLSR_BFSTMFormat_DSP_ADPCM:
+			loadInfo.pcmFormat = PcmFormat_Adpcm;
+			break;
+		default:
+			return _LOCAL_RC_MAKE(Unsupported);
+	}
+
+	loadInfo.layout.type = PLSR_PlayerSoundLoadLayout_Blocks;
+	loadInfo.layout.blocks.firstBlockOffset = streamInfo.dataOffset;
+	loadInfo.layout.blocks.blockSize = streamInfo.blockSize;
+	loadInfo.layout.blocks.lastBlockPadding = streamInfo.lastBlockSizeWithPadding - streamInfo.lastBlockSize;
+
+	loadInfo.ar = &bfstm->ar;
+	loadInfo.looping = streamInfo.looping;
+	loadInfo.sampleRate = streamInfo.sampleRate;
+	loadInfo.sampleCount = streamInfo.sampleCount;
+	loadInfo.channelCount = plsrBFSTMChannelCount(bfstm);
+
+	u32 fullBlockCount = streamInfo.blockCount > 1 ? streamInfo.blockCount - 1 : 1;
+	loadInfo.dataSize = fullBlockCount * streamInfo.blockSize + streamInfo.lastBlockSize;
+
+	if(loadInfo.looping) {
+		loadInfo.loopStartSample = streamInfo.loopStartSample;
+	}
+
+	if(streamInfo.format == PLSR_BFSTMFormat_DSP_ADPCM) {
+		for(u32 channel = 0; channel < plsrBFSTMChannelCount(bfstm) && channel < PLSR_PLAYER_MAX_CHANNELS; channel++) {
+			PLSR_BFSTMChannelInfo channelInfo;
+			_LOCAL_TRY(plsrBFSTMChannelGet(bfstm, channel, &channelInfo));
+
+			loadInfo.adpcm[channel].context.index = channelInfo.adpcmInfo.loop.header;
+			loadInfo.adpcm[channel].context.history0 = channelInfo.adpcmInfo.loop.yn1;
+			loadInfo.adpcm[channel].context.history1 = channelInfo.adpcmInfo.loop.yn2;
+
+			// TODO: static assert libnx params = plsr adpcm coeffs
+			memcpy(&loadInfo.adpcm[channel].parameters, &channelInfo.adpcmInfo.coeffs[0], sizeof(AudioRendererAdpcmParameters));
+		}
+	}
+
+	return plsrPlayerLoad(&loadInfo, out);
+}
+
 #endif
