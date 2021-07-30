@@ -97,6 +97,7 @@ typedef enum {
 	PLSR_ArchiveType_BFWSD, ///< Wave sound data
 	PLSR_ArchiveType_BFWAR, ///< Wave archive
 	PLSR_ArchiveType_BFWAV, ///< Wave file
+	PLSR_ArchiveType_BFSTM, ///< Stream file
 
 	PLSR_ArchiveType_Player = 0xFF, ///< Not an archive, type used by Player functions
 } PLSR_ArchiveType;

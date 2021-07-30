@@ -10,6 +10,7 @@ export PLSR_SOURCES := src/archive \
 	src/bfwar \
 	src/bfwav \
 	src/bfwsd \
+	src/bfstm \
 	src/player
 
 export PLSR_INCLUDES := include
