@@ -99,10 +99,14 @@ PLSR_RC plsrPlayerPlay(PLSR_PlayerSoundId id) {
 	}
 
 	PLSR_PlayerSound* sound = (PLSR_PlayerSound*)id;
-	for(unsigned int i = 0; i < sound->channelCount; i++) {
-		audrvVoiceStop(&g_instance->driver, sound->channels[i].voiceId);
-		audrvVoiceAddWaveBuf(&g_instance->driver, sound->channels[i].voiceId, &sound->channels[i].wavebuf);
-		audrvVoiceStart(&g_instance->driver, sound->channels[i].voiceId);
+	for(unsigned int channel = 0; channel < sound->channelCount; channel++) {
+		audrvVoiceStop(&g_instance->driver, sound->channels[channel].voiceId);
+
+		for(unsigned int i = 0; i < sound->wavebufCount; i++) {
+			audrvVoiceAddWaveBuf(&g_instance->driver, sound->channels[channel].voiceId, &sound->channels[channel].wavebufs[i]);
+		}
+
+		audrvVoiceStart(&g_instance->driver, sound->channels[channel].voiceId);
 	}
 
 	audrvUpdate(&g_instance->driver);
