@@ -87,16 +87,18 @@ static PLSR_RC _loadSoundFromInfo(PLSR_Player* player, const PLSR_PlayerSoundLoa
 	}
 	*out = sound;
 
+	bool useSecondLoopWavebuf = loadInfo->looping && loadInfo->loopStartSample != 0;
 	size_t alignedDataSize = _AUDREN_ALIGN(dataSize);
 	size_t alignedAdpcmParametersSize = loadInfo->pcmFormat == PcmFormat_Adpcm ? _AUDREN_ALIGN(sizeof(AudioRendererAdpcmParameters)) : 0;
 	size_t alignedAdpcmContextSize = loadInfo->pcmFormat == PcmFormat_Adpcm ? _AUDREN_ALIGN(sizeof(AudioRendererAdpcmContext)) : 0;
 	size_t mempoolSize = alignedDataSize + alignedAdpcmParametersSize + alignedAdpcmContextSize;
 
 	sound->channelCount = 0;
+	sound->wavebufCount = useSecondLoopWavebuf ? 2 : 1;
 	for(unsigned int channel = 0; channel < loadInfo->channelCount && channel < PLSR_PLAYER_MAX_CHANNELS; channel++) {
 		sound->channelCount++;
 
-		memset(&sound->channels[channel].wavebuf, 0, sizeof(AudioDriverWaveBuf));
+		memset(&sound->channels[channel].wavebufs[0], 0, sizeof(AudioDriverWaveBuf));
 		sound->channels[channel].mempool = NULL;
 		sound->channels[channel].mempoolId = -1;
 		sound->channels[channel].voiceId = _getFreeVoiceId(player);
@@ -110,7 +112,6 @@ static PLSR_RC _loadSoundFromInfo(PLSR_Player* player, const PLSR_PlayerSoundLoa
 		}
 
 		audrvVoiceSetDestinationMix(&player->driver, sound->channels[channel].voiceId, AUDREN_FINAL_MIX_ID);
-
 		for(unsigned int i = 0; i < PLSR_PLAYER_MAX_CHANNELS; i++) {
 			audrvVoiceSetMixFactor(
 				&player->driver,
@@ -131,21 +132,29 @@ static PLSR_RC _loadSoundFromInfo(PLSR_Player* player, const PLSR_PlayerSoundLoa
 		AudioRendererAdpcmParameters* adpcmParameters = (AudioRendererAdpcmParameters*)(dataPtr + alignedDataSize);
 		AudioRendererAdpcmContext* adpcmContext = (AudioRendererAdpcmContext*)(dataPtr + alignedDataSize + alignedAdpcmParametersSize);
 
-		sound->channels[channel].wavebuf.data_raw = dataPtr;
-		sound->channels[channel].wavebuf.size = dataSize;
-		sound->channels[channel].wavebuf.end_sample_offset = loadInfo->sampleCount;
+		sound->channels[channel].wavebufs[0].data_raw = dataPtr;
+		sound->channels[channel].wavebufs[0].size = dataSize;
+		sound->channels[channel].wavebufs[0].end_sample_offset = loadInfo->sampleCount;
+		sound->channels[channel].wavebufs[0].is_looping = loadInfo->looping;
 
 		if(loadInfo->pcmFormat == PcmFormat_Adpcm) {
 			memcpy(adpcmContext, &loadInfo->adpcm[channel].context, sizeof(AudioRendererAdpcmContext));
 			memcpy(adpcmParameters, &loadInfo->adpcm[channel].parameters, sizeof(AudioRendererAdpcmParameters));
 
-			sound->channels[channel].wavebuf.context_addr = adpcmContext;
-			sound->channels[channel].wavebuf.context_sz = sizeof(AudioRendererAdpcmContext);
+			sound->channels[channel].wavebufs[0].context_addr = adpcmContext;
+			sound->channels[channel].wavebufs[0].context_sz = sizeof(AudioRendererAdpcmContext);
 			audrvVoiceSetExtraParams(&player->driver, sound->channels[channel].voiceId, adpcmParameters, sizeof(AudioRendererAdpcmParameters));
 		}
 
 		sound->channels[channel].mempoolId = audrvMemPoolAdd(&player->driver, sound->channels[channel].mempool, mempoolSize);
 		audrvMemPoolAttach(&player->driver, sound->channels[channel].mempoolId);
+
+		if(useSecondLoopWavebuf) {
+			memcpy(&sound->channels[channel].wavebufs[1], &sound->channels[channel].wavebufs[0], sizeof(AudioDriverWaveBuf));
+			sound->channels[channel].wavebufs[0].end_sample_offset = loadInfo->loopStartSample - 1;
+			sound->channels[channel].wavebufs[0].is_looping = false;
+			sound->channels[channel].wavebufs[1].start_sample_offset = loadInfo->loopStartSample;
+		}
 	}
 
 	switch(loadInfo->layout.type) {

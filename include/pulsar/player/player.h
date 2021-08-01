@@ -30,13 +30,14 @@ typedef struct {
 /// Player sound channel
 typedef struct {
 	void* mempool; ///< Pointer to the aligned memory containing audio samples (and ADPCM parameters when applicable)
-	AudioDriverWaveBuf wavebuf; ///< Audio driver audio buffer struct
+	AudioDriverWaveBuf wavebufs[2]; ///< Audio driver audio buffer struct (0 = intro/main; 1 = loop if looping)
 	int mempoolId; ///< Audio driver assigned mempool index
 	int voiceId; ///< Audio driver assigned voice index
 } PLSR_PlayerSoundChannel;
 
 /// Player sound
 typedef struct {
+	unsigned int wavebufCount;
 	unsigned int channelCount;
 	PLSR_PlayerSoundChannel channels[PLSR_PLAYER_MAX_CHANNELS];
 } PLSR_PlayerSound;
