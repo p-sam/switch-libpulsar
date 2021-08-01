@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Pulsar
-   &#160;<span id="projectnumber">2028927</span>
+   &#160;<span id="projectnumber">3d3a057</span>
    </div>
   </td>
  </tr>
@@ -64,11 +64,18 @@ $(function() {
 <div class="textblock">Here is a list of all documented struct and union fields with links to the struct/union documentation for each field:</div>
 
 <h3><a id="index_a"></a>- a -</h3><ul>
+<li>adpcm
+: <a class="el" href="structPLSR__PlayerSoundLoadInfo.html#a274ecf7de7b8cf76dcf2254e77e46576">PLSR_PlayerSoundLoadInfo</a>
+</li>
 <li>adpcmInfo
-: <a class="el" href="structPLSR__BFWAVChannelInfo.html#aeb60e5cdf0ba8b1168ecbdad4adb038a">PLSR_BFWAVChannelInfo</a>
+: <a class="el" href="structPLSR__BFSTMChannelInfo.html#a0ce274bb5bce8e3fc38e0ca92e59e29d">PLSR_BFSTMChannelInfo</a>
+, <a class="el" href="structPLSR__BFWAVChannelInfo.html#aeb60e5cdf0ba8b1168ecbdad4adb038a">PLSR_BFWAVChannelInfo</a>
 </li>
 <li>adshr
 : <a class="el" href="structPLSR__BFWSDSoundDataInfo.html#af5c6dcbf9ee8e8cb129757ada7527a71">PLSR_BFWSDSoundDataInfo</a>
+</li>
+<li>ar
+: <a class="el" href="structPLSR__PlayerSoundLoadInfo.html#a847e9f7762e96c55767c89bd2a513c6a">PLSR_PlayerSoundLoadInfo</a>
 </li>
 <li>audrenConfig
 : <a class="el" href="structPLSR__PlayerConfig.html#af076bbed0b8af26430f0d5eb39ae5ebb">PLSR_PlayerConfig</a>
@@ -77,6 +84,12 @@ $(function() {
 
 
 <h3><a id="index_b"></a>- b -</h3><ul>
+<li>blockCount
+: <a class="el" href="structPLSR__BFSTMInfo.html#acffa21fe89592260d8aa89372b4fb154">PLSR_BFSTMInfo</a>
+</li>
+<li>blockSampleCount
+: <a class="el" href="structPLSR__BFSTMInfo.html#ac63489afb47180e9736b25a27f61f467">PLSR_BFSTMInfo</a>
+</li>
 <li>blockSize
 : <a class="el" href="structPLSR__ArchiveSectionInfo.html#aa4cfee07d6dc7d52db4fb66b2c2029ca">PLSR_ArchiveSectionInfo</a>
 </li>
@@ -88,7 +101,8 @@ $(function() {
 : <a class="el" href="structPLSR__BFWAVInfo.html#a47f165a475b79918c8eb453d9749f07f">PLSR_BFWAVInfo</a>
 </li>
 <li>coeffs
-: <a class="el" href="structPLSR__BFWAVAdpcmInfo.html#a73735b466efb8110ffd009396f310f40">PLSR_BFWAVAdpcmInfo</a>
+: <a class="el" href="structPLSR__BFSTMChannelAdpcmInfo.html#a0adfa90b593ee4df98568cfc2580aecd">PLSR_BFSTMChannelAdpcmInfo</a>
+, <a class="el" href="structPLSR__BFWAVAdpcmInfo.html#a73735b466efb8110ffd009396f310f40">PLSR_BFWAVAdpcmInfo</a>
 </li>
 <li>config
 : <a class="el" href="structPLSR__Player.html#a42ea6cb126fdbb954979c6ee34e66f8c">PLSR_Player</a>
@@ -101,7 +115,11 @@ $(function() {
 
 <h3><a id="index_d"></a>- d -</h3><ul>
 <li>dataOffset
-: <a class="el" href="structPLSR__BFWAVChannelInfo.html#a708cb4704313f5865d14ffc0deb76bfc">PLSR_BFWAVChannelInfo</a>
+: <a class="el" href="structPLSR__BFSTMInfo.html#a45ba2b1f435595756e21980949316325">PLSR_BFSTMInfo</a>
+, <a class="el" href="structPLSR__BFWAVChannelInfo.html#a708cb4704313f5865d14ffc0deb76bfc">PLSR_BFWAVChannelInfo</a>
+</li>
+<li>dataSize
+: <a class="el" href="structPLSR__PlayerSoundLoadInfo.html#a3755c33c87d55045a429fe95a723c114">PLSR_PlayerSoundLoadInfo</a>
 </li>
 <li>driver
 : <a class="el" href="structPLSR__Player.html#a376189701ea018f1ec574f2f9fdb249e">PLSR_Player</a>
@@ -122,8 +140,12 @@ $(function() {
 , <a class="el" href="structPLSR__BFSARSoundInfo.html#ada0fbd6a219ee9e82adf39e9ec5dc2ad">PLSR_BFSARSoundInfo</a>
 , <a class="el" href="structPLSR__BFSARWaveArchiveInfo.html#a0b942082f7427d8cae37b7eef76cc31a">PLSR_BFSARWaveArchiveInfo</a>
 </li>
+<li>firstBlockOffset
+: <a class="el" href="structPLSR__PlayerSoundLoadBlocksLayoutInfo.html#ae4e7b87751f7b7869013ebeeae5a05f5">PLSR_PlayerSoundLoadBlocksLayoutInfo</a>
+</li>
 <li>format
-: <a class="el" href="structPLSR__BFWAVInfo.html#adb3afa6d1c9b7c7ada6e00d67b548c70">PLSR_BFWAVInfo</a>
+: <a class="el" href="structPLSR__BFSTMInfo.html#ab6ab8e11214bd0830f53703f867061e4">PLSR_BFSTMInfo</a>
+, <a class="el" href="structPLSR__BFWAVInfo.html#adb3afa6d1c9b7c7ada6e00d67b548c70">PLSR_BFWAVInfo</a>
 </li>
 <li>fromGroup
 : <a class="el" href="structPLSR__BFSARFileInfo.html#a89df0d1b5faa667b76191ba9cb9af741">PLSR_BFSARFileInfo</a>
@@ -143,7 +165,8 @@ $(function() {
 : <a class="el" href="structPLSR__Archive.html#a1c6c279919e35a93d80ab281014cef91">PLSR_Archive</a>
 </li>
 <li>header
-: <a class="el" href="structPLSR__BFWAVAdpcmContextInfo.html#a64cccf4658824aabbea752cf3ea919fc">PLSR_BFWAVAdpcmContextInfo</a>
+: <a class="el" href="structPLSR__BFSTMChannelAdpcmContextInfo.html#a52b65f22f5ce7f961eab3f8fd086457a">PLSR_BFSTMChannelAdpcmContextInfo</a>
+, <a class="el" href="structPLSR__BFWAVAdpcmContextInfo.html#a64cccf4658824aabbea752cf3ea919fc">PLSR_BFWAVAdpcmContextInfo</a>
 </li>
 </ul>
 
@@ -168,21 +191,35 @@ $(function() {
 
 
 <h3><a id="index_l"></a>- l -</h3><ul>
+<li>lastBlockSampleCount
+: <a class="el" href="structPLSR__BFSTMInfo.html#a9747eaa4bc1513484f04fc0c9fd3d004">PLSR_BFSTMInfo</a>
+</li>
+<li>lastBlockSize
+: <a class="el" href="structPLSR__BFSTMInfo.html#a0345798b87229f5d1a7104289ab630dc">PLSR_BFSTMInfo</a>
+</li>
+<li>lastBlockSizeWithPadding
+: <a class="el" href="structPLSR__BFSTMInfo.html#a8af944e65a6e9e1f1bef090dcaf96717">PLSR_BFSTMInfo</a>
+</li>
 <li>loop
-: <a class="el" href="structPLSR__BFWAVAdpcmInfo.html#aa8a57cf29671ebfba2ea637288789065">PLSR_BFWAVAdpcmInfo</a>
+: <a class="el" href="structPLSR__BFSTMChannelAdpcmInfo.html#a0772b28adef272991012fdee66e9a7f7">PLSR_BFSTMChannelAdpcmInfo</a>
+, <a class="el" href="structPLSR__BFWAVAdpcmInfo.html#aa8a57cf29671ebfba2ea637288789065">PLSR_BFWAVAdpcmInfo</a>
 </li>
 <li>looping
-: <a class="el" href="structPLSR__BFWAVInfo.html#adca2a0ea2c48293d3ae0b3f64a512090">PLSR_BFWAVInfo</a>
+: <a class="el" href="structPLSR__BFSTMInfo.html#ad96eac8bc37b5169d5e4a8d717158498">PLSR_BFSTMInfo</a>
+, <a class="el" href="structPLSR__BFWAVInfo.html#adca2a0ea2c48293d3ae0b3f64a512090">PLSR_BFWAVInfo</a>
 </li>
 <li>loopStartSample
-: <a class="el" href="structPLSR__BFWAVInfo.html#a1bed1071c8786290d8a1bed528af6133">PLSR_BFWAVInfo</a>
+: <a class="el" href="structPLSR__BFSTMInfo.html#a64b79ef828cbf2fd4a626b8b26330e74">PLSR_BFSTMInfo</a>
+, <a class="el" href="structPLSR__BFWAVInfo.html#a1bed1071c8786290d8a1bed528af6133">PLSR_BFWAVInfo</a>
+, <a class="el" href="structPLSR__PlayerSoundLoadInfo.html#ab827853d22c9ef5de1dd3b137c660def">PLSR_PlayerSoundLoadInfo</a>
 </li>
 </ul>
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>main
-: <a class="el" href="structPLSR__BFWAVAdpcmInfo.html#ae9ed488deccb6a591349e94394211efb">PLSR_BFWAVAdpcmInfo</a>
+: <a class="el" href="structPLSR__BFSTMChannelAdpcmInfo.html#a080b5267564fbb3304028dc7aab3bf56">PLSR_BFSTMChannelAdpcmInfo</a>
+, <a class="el" href="structPLSR__BFWAVAdpcmInfo.html#ae9ed488deccb6a591349e94394211efb">PLSR_BFWAVAdpcmInfo</a>
 </li>
 <li>mempool
 : <a class="el" href="structPLSR__PlayerSoundChannel.html#a7fd19ea00f1c50d9b45a35247102d31a">PLSR_PlayerSoundChannel</a>
@@ -210,6 +247,9 @@ $(function() {
 , <a class="el" href="structPLSR__ArchiveTableEntry.html#af3142ae24194611afb53aaaf287dc523">PLSR_ArchiveTableEntry</a>
 , <a class="el" href="structPLSR__BFSARStringTree.html#ae0ad3709bcaef365c170ffa9518003a3">PLSR_BFSARStringTree</a>
 </li>
+<li>offsets
+: <a class="el" href="structPLSR__PlayerSoundLoadChannelLayoutInfo.html#abadb476b6cb4aca3c355e588395dab3f">PLSR_PlayerSoundLoadChannelLayoutInfo</a>
+</li>
 </ul>
 
 
@@ -225,16 +265,18 @@ $(function() {
 
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>sampleCount
-: <a class="el" href="structPLSR__BFWAVInfo.html#a68ee175fd6e0a326e56399639796a96c">PLSR_BFWAVInfo</a>
+: <a class="el" href="structPLSR__BFSTMInfo.html#afdd613890486620ccaf311dd545308d4">PLSR_BFSTMInfo</a>
+, <a class="el" href="structPLSR__BFWAVInfo.html#a68ee175fd6e0a326e56399639796a96c">PLSR_BFWAVInfo</a>
 </li>
 <li>sampleRate
-: <a class="el" href="structPLSR__BFWAVInfo.html#a08fc38745965517bd9bbb86357aae9a5">PLSR_BFWAVInfo</a>
+: <a class="el" href="structPLSR__BFSTMInfo.html#a2131d9b2c02b98503f54a0602a595918">PLSR_BFSTMInfo</a>
+, <a class="el" href="structPLSR__BFWAVInfo.html#a08fc38745965517bd9bbb86357aae9a5">PLSR_BFWAVInfo</a>
 </li>
 <li>send
 : <a class="el" href="structPLSR__BFWSDSoundDataInfo.html#a5efa4589cc4bf9a90e482eb7692a65a8">PLSR_BFWSDSoundDataInfo</a>
 </li>
 <li>sinkChannels
-: <a class="el" href="structPLSR__PlayerConfig.html#a70024b4ec223b590f9a9a8f85462b624">PLSR_PlayerConfig</a>
+: <a class="el" href="structPLSR__PlayerConfig.html#a27315cd4275c24751236bb522934cefd">PLSR_PlayerConfig</a>
 </li>
 <li>startVoiceId
 : <a class="el" href="structPLSR__PlayerConfig.html#a6ca7ab39319c6d2a8027b4e1e53b1d20">PLSR_PlayerConfig</a>
@@ -264,8 +306,8 @@ $(function() {
 <li>wave
 : <a class="el" href="structPLSR__BFSARSoundInfo.html#a9a178572f6b2683a4abfd01061a79f56">PLSR_BFSARSoundInfo</a>
 </li>
-<li>wavebuf
-: <a class="el" href="structPLSR__PlayerSoundChannel.html#a4fdc27eaf1a50c55ed2401384c6e247b">PLSR_PlayerSoundChannel</a>
+<li>wavebufs
+: <a class="el" href="structPLSR__PlayerSoundChannel.html#a59bfd91c4463f54f62a338d25b76b76d">PLSR_PlayerSoundChannel</a>
 </li>
 <li>waveCount
 : <a class="el" href="structPLSR__BFSARWaveArchiveInfo.html#ab5be045d402f3802b5fc1aff8ef0b010">PLSR_BFSARWaveArchiveInfo</a>
@@ -278,16 +320,18 @@ $(function() {
 
 <h3><a id="index_y"></a>- y -</h3><ul>
 <li>yn1
-: <a class="el" href="structPLSR__BFWAVAdpcmContextInfo.html#aea8cd7842bb0bb26bd0f5e67c7493fbf">PLSR_BFWAVAdpcmContextInfo</a>
+: <a class="el" href="structPLSR__BFSTMChannelAdpcmContextInfo.html#a89edb6f1747aa3f52a1815a0fe2fb415">PLSR_BFSTMChannelAdpcmContextInfo</a>
+, <a class="el" href="structPLSR__BFWAVAdpcmContextInfo.html#aea8cd7842bb0bb26bd0f5e67c7493fbf">PLSR_BFWAVAdpcmContextInfo</a>
 </li>
 <li>yn2
-: <a class="el" href="structPLSR__BFWAVAdpcmContextInfo.html#a4ed224b8a7476a6476a7a125e0f84a18">PLSR_BFWAVAdpcmContextInfo</a>
+: <a class="el" href="structPLSR__BFSTMChannelAdpcmContextInfo.html#a3cec50f9d150db75938482695eeff4ee">PLSR_BFSTMChannelAdpcmContextInfo</a>
+, <a class="el" href="structPLSR__BFWAVAdpcmContextInfo.html#a4ed224b8a7476a6476a7a125e0f84a18">PLSR_BFWAVAdpcmContextInfo</a>
 </li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 19 2021 11:56:52 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 1 2021 11:34:58 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

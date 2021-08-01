@@ -26,6 +26,11 @@ var searchData=
   ['plsr_5fbfsarstringtree',['PLSR_BFSARStringTree',['../structPLSR__BFSARStringTree.html',1,'']]],
   ['plsr_5fbfsarstringtreeinfo',['PLSR_BFSARStringTreeInfo',['../structPLSR__BFSARStringTreeInfo.html',1,'']]],
   ['plsr_5fbfsarwavearchiveinfo',['PLSR_BFSARWaveArchiveInfo',['../structPLSR__BFSARWaveArchiveInfo.html',1,'']]],
+  ['plsr_5fbfstm',['PLSR_BFSTM',['../structPLSR__BFSTM.html',1,'']]],
+  ['plsr_5fbfstmchanneladpcmcontextinfo',['PLSR_BFSTMChannelAdpcmContextInfo',['../structPLSR__BFSTMChannelAdpcmContextInfo.html',1,'']]],
+  ['plsr_5fbfstmchanneladpcminfo',['PLSR_BFSTMChannelAdpcmInfo',['../structPLSR__BFSTMChannelAdpcmInfo.html',1,'']]],
+  ['plsr_5fbfstmchannelinfo',['PLSR_BFSTMChannelInfo',['../structPLSR__BFSTMChannelInfo.html',1,'']]],
+  ['plsr_5fbfstminfo',['PLSR_BFSTMInfo',['../structPLSR__BFSTMInfo.html',1,'']]],
   ['plsr_5fbfwar',['PLSR_BFWAR',['../structPLSR__BFWAR.html',1,'']]],
   ['plsr_5fbfwarfileinfo',['PLSR_BFWARFileInfo',['../structPLSR__BFWARFileInfo.html',1,'']]],
   ['plsr_5fbfwav',['PLSR_BFWAV',['../structPLSR__BFWAV.html',1,'']]],
@@ -42,5 +47,10 @@ var searchData=
   ['plsr_5fplayer',['PLSR_Player',['../structPLSR__Player.html',1,'']]],
   ['plsr_5fplayerconfig',['PLSR_PlayerConfig',['../structPLSR__PlayerConfig.html',1,'']]],
   ['plsr_5fplayersound',['PLSR_PlayerSound',['../structPLSR__PlayerSound.html',1,'']]],
-  ['plsr_5fplayersoundchannel',['PLSR_PlayerSoundChannel',['../structPLSR__PlayerSoundChannel.html',1,'']]]
+  ['plsr_5fplayersoundadpcmchannelinfo',['PLSR_PlayerSoundAdpcmChannelInfo',['../structPLSR__PlayerSoundAdpcmChannelInfo.html',1,'']]],
+  ['plsr_5fplayersoundchannel',['PLSR_PlayerSoundChannel',['../structPLSR__PlayerSoundChannel.html',1,'']]],
+  ['plsr_5fplayersoundloadblockslayoutinfo',['PLSR_PlayerSoundLoadBlocksLayoutInfo',['../structPLSR__PlayerSoundLoadBlocksLayoutInfo.html',1,'']]],
+  ['plsr_5fplayersoundloadchannellayoutinfo',['PLSR_PlayerSoundLoadChannelLayoutInfo',['../structPLSR__PlayerSoundLoadChannelLayoutInfo.html',1,'']]],
+  ['plsr_5fplayersoundloadinfo',['PLSR_PlayerSoundLoadInfo',['../structPLSR__PlayerSoundLoadInfo.html',1,'']]],
+  ['plsr_5fplayersoundloadlayoutinfo',['PLSR_PlayerSoundLoadLayoutInfo',['../structPLSR__PlayerSoundLoadLayoutInfo.html',1,'']]]
 ];

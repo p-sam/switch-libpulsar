@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Pulsar
-   &#160;<span id="projectnumber">2028927</span>
+   &#160;<span id="projectnumber">3d3a057</span>
    </div>
   </td>
  </tr>
@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Shared archive file handle management.  
+<p>Shared archive file management.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">pulsar/types.h</a>&gt;</code><br />
 </div>
@@ -100,15 +100,18 @@ typedef const <a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_Arc
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3fed4dee0c212eb273e6064fc43a698e"><td class="memItemLeft" align="right" valign="top"><a id="a3fed4dee0c212eb273e6064fc43a698e"></a>
-<a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_ArchiveFileHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><b>plsrArchiveFileOpen</b> (const char *path)</td></tr>
-<tr class="separator:a3fed4dee0c212eb273e6064fc43a698e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79cd53f16825087ed037ee0bc2dec7cb"><td class="memItemLeft" align="right" valign="top"><a id="a79cd53f16825087ed037ee0bc2dec7cb"></a>
+<a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_ArchiveFileHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><b>plsrArchiveFileOpen</b> (const char *path, bool storePath)</td></tr>
+<tr class="separator:a79cd53f16825087ed037ee0bc2dec7cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c2013adaff85de4739094c944f8f0e5"><td class="memItemLeft" align="right" valign="top"><a id="a0c2013adaff85de4739094c944f8f0e5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>plsrArchiveFileClose</b> (<a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_ArchiveFileHandle</a> handle)</td></tr>
 <tr class="separator:a0c2013adaff85de4739094c944f8f0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6433d8daca84169da17744da67c583f4"><td class="memItemLeft" align="right" valign="top"><a id="a6433d8daca84169da17744da67c583f4"></a>
 <a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_ArchiveFileHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><b>plsrArchiveFileCloneHandle</b> (<a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_ArchiveFileHandle</a> handle)</td></tr>
 <tr class="separator:a6433d8daca84169da17744da67c583f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae68f1dcb42360d549356c719e7decdc5"><td class="memItemLeft" align="right" valign="top"><a id="ae68f1dcb42360d549356c719e7decdc5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>plsrArchiveFileRelativePath</b> (<a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_ArchiveFileHandle</a> handle, const char *path, char *out, size_t size)</td></tr>
+<tr class="separator:ae68f1dcb42360d549356c719e7decdc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0df990ed73778eba883bf0a58b610abe"><td class="memItemLeft" align="right" valign="top"><a id="a0df990ed73778eba883bf0a58b610abe"></a>
 NX_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><b>plsrArchiveFileRead</b> (<a class="el" href="structPLSR__ArchiveSharedReader.html">PLSR_ArchiveFileHandle</a> handle, void *out, size_t size)</td></tr>
 <tr class="separator:a0df990ed73778eba883bf0a58b610abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,12 +123,12 @@ NX_INLINE bool&#160;</td><td class="memItemRight" valign="bottom"><b>plsrArchive
 <tr class="separator:aa3d7f873edbaec8c88efd90b549dfec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Shared archive file handle management. </p>
+<div class="textblock"><p>Shared archive file management. </p>
 <dl class="section note"><dt>Note</dt><dd>These should not be needed directly, use the wrapped archive functions instead </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 19 2021 11:56:52 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 1 2021 11:34:58 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

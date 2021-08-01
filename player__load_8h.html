@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Pulsar
-   &#160;<span id="projectnumber">2028927</span>
+   &#160;<span id="projectnumber">3d3a057</span>
    </div>
   </td>
  </tr>
@@ -66,6 +66,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">player_load.h File Reference</div>  </div>
@@ -75,22 +77,75 @@ $(function() {
 <p>Player sound loading.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="player_8h_source.html">pulsar/player/player.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="bfwav_8h_source.html">pulsar/bfwav/bfwav.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="bfstm_8h_source.html">pulsar/bfstm/bfstm.h</a>&gt;</code><br />
 </div>
 <p><a href="player__load_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPLSR__PlayerSoundLoadChannelLayoutInfo.html">PLSR_PlayerSoundLoadChannelLayoutInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player sound load channel layout specific information.  <a href="structPLSR__PlayerSoundLoadChannelLayoutInfo.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPLSR__PlayerSoundLoadBlocksLayoutInfo.html">PLSR_PlayerSoundLoadBlocksLayoutInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player sound load blocks layout specific information.  <a href="structPLSR__PlayerSoundLoadBlocksLayoutInfo.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPLSR__PlayerSoundLoadLayoutInfo.html">PLSR_PlayerSoundLoadLayoutInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player sound load layout information.  <a href="structPLSR__PlayerSoundLoadLayoutInfo.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPLSR__PlayerSoundAdpcmChannelInfo.html">PLSR_PlayerSoundAdpcmChannelInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPLSR__PlayerSoundLoadInfo.html">PLSR_PlayerSoundLoadInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player sound load information.  <a href="structPLSR__PlayerSoundLoadInfo.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:afdd7a878ffd70f998cab657efb7fdc34"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="player__load_8h.html#afdd7a878ffd70f998cab657efb7fdc34">PLSR_PlayerSoundLoadLayout</a> { <br />
+&#160;&#160;<a class="el" href="player__load_8h.html#afdd7a878ffd70f998cab657efb7fdc34a36586327d7b5d842af79632165eab40c">PLSR_PlayerSoundLoadLayout_Channel</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="player__load_8h.html#afdd7a878ffd70f998cab657efb7fdc34a87f10784156920e0055492ec23aa5991">PLSR_PlayerSoundLoadLayout_Blocks</a>
+<br />
+ }<tr class="memdesc:afdd7a878ffd70f998cab657efb7fdc34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player sound load layout.  <a href="player__load_8h.html#afdd7a878ffd70f998cab657efb7fdc34">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:afdd7a878ffd70f998cab657efb7fdc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0d895ed68884e8b73c1c134ed43235da"><td class="memItemLeft" align="right" valign="top"><a id="a0d895ed68884e8b73c1c134ed43235da"></a>
-<a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="player__load_8h.html#a0d895ed68884e8b73c1c134ed43235da">plsrPlayerLoadWave</a> (const <a class="el" href="structPLSR__BFWAV.html">PLSR_BFWAV</a> *bfwav, <a class="el" href="player_8h.html#a4d624076c01c0c7e55a5999b9aa857b8">PLSR_PlayerSoundId</a> *out)</td></tr>
-<tr class="memdesc:a0d895ed68884e8b73c1c134ed43235da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a sound from a Wave file. <br /></td></tr>
-<tr class="separator:a0d895ed68884e8b73c1c134ed43235da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6be971f617b484b64c70965121849b82"><td class="memItemLeft" align="right" valign="top"><a id="a6be971f617b484b64c70965121849b82"></a>
+<a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="player__load_8h.html#a6be971f617b484b64c70965121849b82">plsrPlayerLoad</a> (const <a class="el" href="structPLSR__PlayerSoundLoadInfo.html">PLSR_PlayerSoundLoadInfo</a> *loadInfo, <a class="el" href="player_8h.html#a4d624076c01c0c7e55a5999b9aa857b8">PLSR_PlayerSoundId</a> *out)</td></tr>
+<tr class="memdesc:a6be971f617b484b64c70965121849b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a sound from a normalized sound load information. <br /></td></tr>
+<tr class="separator:a6be971f617b484b64c70965121849b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Player sound loading. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="afdd7a878ffd70f998cab657efb7fdc34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdd7a878ffd70f998cab657efb7fdc34">&#9670;&nbsp;</a></span>PLSR_PlayerSoundLoadLayout</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="player__load_8h.html#afdd7a878ffd70f998cab657efb7fdc34">PLSR_PlayerSoundLoadLayout</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Player sound load layout. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afdd7a878ffd70f998cab657efb7fdc34a36586327d7b5d842af79632165eab40c"></a>PLSR_PlayerSoundLoadLayout_Channel&#160;</td><td class="fielddoc"><p>One offset per channel where is stored one contiguous chunk of data. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afdd7a878ffd70f998cab657efb7fdc34a87f10784156920e0055492ec23aa5991"></a>PLSR_PlayerSoundLoadLayout_Blocks&#160;</td><td class="fielddoc"><p>One offset where is stored fixed-size blocks in channel order until the end is reached. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 19 2021 11:56:52 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 1 2021 11:34:58 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

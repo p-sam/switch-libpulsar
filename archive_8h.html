@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Pulsar
-   &#160;<span id="projectnumber">2028927</span>
+   &#160;<span id="projectnumber">3d3a057</span>
    </div>
   </td>
  </tr>
@@ -119,10 +119,13 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac7e71c49e189c71c446e49dd38662baf"><td class="memItemLeft" align="right" valign="top"><a id="ac7e71c49e189c71c446e49dd38662baf"></a>
-<a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8h.html#ac7e71c49e189c71c446e49dd38662baf">plsrArchiveOpen</a> (const char *path, <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *out)</td></tr>
-<tr class="memdesc:ac7e71c49e189c71c446e49dd38662baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open from a file at specified path. <br /></td></tr>
-<tr class="separator:ac7e71c49e189c71c446e49dd38662baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4733bac811d9e8d0180b3113e75b25a6"><td class="memItemLeft" align="right" valign="top"><a id="a4733bac811d9e8d0180b3113e75b25a6"></a>
+<a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8h.html#a4733bac811d9e8d0180b3113e75b25a6">plsrArchiveOpenEx</a> (const char *path, <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *out, bool storePath)</td></tr>
+<tr class="memdesc:a4733bac811d9e8d0180b3113e75b25a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open from a file at specified path (advanced) <br /></td></tr>
+<tr class="separator:a4733bac811d9e8d0180b3113e75b25a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa083ff43241445f79995b479a2d0640a"><td class="memItemLeft" align="right" valign="top">NX_INLINE <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8h.html#aa083ff43241445f79995b479a2d0640a">plsrArchiveOpen</a> (const char *path, <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *out)</td></tr>
+<tr class="memdesc:aa083ff43241445f79995b479a2d0640a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open from a file at specified path.  <a href="#aa083ff43241445f79995b479a2d0640a">More...</a><br /></td></tr>
+<tr class="separator:aa083ff43241445f79995b479a2d0640a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad38e9da53ff2d3939c2a49d18c70ea01"><td class="memItemLeft" align="right" valign="top"><a id="ad38e9da53ff2d3939c2a49d18c70ea01"></a>
 <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8h.html#ad38e9da53ff2d3939c2a49d18c70ea01">plsrArchiveOpenInside</a> (const <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *ar, u32 offset, <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *out)</td></tr>
 <tr class="memdesc:ad38e9da53ff2d3939c2a49d18c70ea01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open from inside another archive at specified offset. <br /></td></tr>
@@ -131,6 +134,9 @@ Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8h.html#a1aac8d53adefab5b66166d65d6c681b2">plsrArchiveClose</a> (<a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *ar)</td></tr>
 <tr class="memdesc:a1aac8d53adefab5b66166d65d6c681b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close archive, releasing resources if applicable. <br /></td></tr>
 <tr class="separator:a1aac8d53adefab5b66166d65d6c681b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed403f2e3b39d3a0c9bb56ada076d125"><td class="memItemLeft" align="right" valign="top">NX_INLINE <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8h.html#aed403f2e3b39d3a0c9bb56ada076d125">plsrArchiveRelativePath</a> (const <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *ar, const char *path, char *out, size_t size)</td></tr>
+<tr class="memdesc:aed403f2e3b39d3a0c9bb56ada076d125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct path relative to the physical archive file.  <a href="#aed403f2e3b39d3a0c9bb56ada076d125">More...</a><br /></td></tr>
+<tr class="separator:aed403f2e3b39d3a0c9bb56ada076d125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af866146f62a4503690e948f491818a98"><td class="memItemLeft" align="right" valign="top"><a id="af866146f62a4503690e948f491818a98"></a>
 NX_INLINE <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8h.html#af866146f62a4503690e948f491818a98">plsrArchiveRead</a> (const <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *ar, void *out, size_t size)</td></tr>
 <tr class="memdesc:af866146f62a4503690e948f491818a98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read archive contents at the current position. <br /></td></tr>
@@ -225,6 +231,37 @@ NX_INLINE <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">P
 
 <p>Read a number of list entries starting from the specified index. </p>
 <dl class="section note"><dt>Note</dt><dd>Additionally to checking RC, outReadCount might not match the requested count </dd></dl>
+
+</div>
+</div>
+<a id="aa083ff43241445f79995b479a2d0640a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa083ff43241445f79995b479a2d0640a">&#9670;&nbsp;</a></span>plsrArchiveOpen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NX_INLINE <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a> plsrArchiveOpen </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open from a file at specified path. </p>
+<dl class="section note"><dt>Note</dt><dd>Path is not stored by default unless specified using <a class="el" href="archive_8h.html#a4733bac811d9e8d0180b3113e75b25a6" title="Open from a file at specified path (advanced) ">plsrArchiveOpenEx()</a> </dd></dl>
 
 </div>
 </div>
@@ -469,10 +506,56 @@ NX_INLINE <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">P
 
 </div>
 </div>
+<a id="aed403f2e3b39d3a0c9bb56ada076d125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed403f2e3b39d3a0c9bb56ada076d125">&#9670;&nbsp;</a></span>plsrArchiveRelativePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NX_INLINE <a class="el" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a> plsrArchiveRelativePath </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structPLSR__Archive.html">PLSR_Archive</a> *&#160;</td>
+          <td class="paramname"><em>ar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct path relative to the physical archive file. </p>
+<ul>
+<li>Does not guarantee it exists (but might fail in some cases if it does not)</li>
+<li>Works only if the archive path was stored when opened </li>
+</ul>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 19 2021 11:56:52 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 1 2021 11:34:58 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

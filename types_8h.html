@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Pulsar
-   &#160;<span id="projectnumber">2028927</span>
+   &#160;<span id="projectnumber">3d3a057</span>
    </div>
   </td>
  </tr>
@@ -81,6 +81,7 @@ $(function() {
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;malloc.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
 </div>
 <p><a href="types_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -188,6 +189,8 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="types_8h.html#a5b015619ee20252e9b57c75a081bde40a8b5db0eccdfb85895ac5c0ed6132d2c2">PLSR_ArchiveType_BFWAV</a>, 
 <br />
+&#160;&#160;<a class="el" href="types_8h.html#a5b015619ee20252e9b57c75a081bde40a49c1e428afadc72065dc9e9b3cfa7368">PLSR_ArchiveType_BFSTM</a>, 
+<br />
 &#160;&#160;<a class="el" href="types_8h.html#a5b015619ee20252e9b57c75a081bde40a1ab205d0231d287825f78400396836b7">PLSR_ArchiveType_Player</a> = 0xFF
 <br />
  }<tr class="memdesc:a5b015619ee20252e9b57c75a081bde40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported archive types.  <a href="types_8h.html#a5b015619ee20252e9b57c75a081bde40">More...</a><br /></td></tr>
@@ -228,10 +231,10 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a>( \</div><div class="line">    <a class="code" href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a>(NEW_ARCHIVE_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a>(NEW_ARCHIVE_TYPE, NEW_CATEGORY_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#abc8f95377c89fc04482b3ae3615791de">PLSR_RC_RESULT</a>(RESULT) \</div><div class="line">)</div><div class="ttc" id="types_8h_html_ab24bbd89333fa29f521bcde7cca4c1de"><div class="ttname"><a href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_ARCHIVE_TYPE(ARCHIVE_TYPE)</div><div class="ttdoc">Shortcut to get an archive enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:18</div></div>
-<div class="ttc" id="types_8h_html_ab3a2cbecd5f893c8bb88b69d085059d1"><div class="ttname"><a href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a></div><div class="ttdeci">#define PLSR_RC_MAKE_RAW(ARCHIVE, CATEGORY, RESULT)</div><div class="ttdoc">Make a result code from raw integers. </div><div class="ttdef"><b>Definition:</b> types.h:21</div></div>
-<div class="ttc" id="types_8h_html_a2b59e1864d4e426686f15441639fb5a5"><div class="ttname"><a href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_CATEGORY_TYPE(ARCHIVE_TYPE, CATEGORY_TYPE)</div><div class="ttdoc">Shortcut to get a category enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:16</div></div>
-<div class="ttc" id="types_8h_html_abc8f95377c89fc04482b3ae3615791de"><div class="ttname"><a href="types_8h.html#abc8f95377c89fc04482b3ae3615791de">PLSR_RC_RESULT</a></div><div class="ttdeci">#define PLSR_RC_RESULT(RESULT)</div><div class="ttdoc">Extract the result type part of a result code. </div><div class="ttdef"><b>Definition:</b> types.h:42</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a>( \</div><div class="line">    <a class="code" href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a>(NEW_ARCHIVE_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a>(NEW_ARCHIVE_TYPE, NEW_CATEGORY_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#abc8f95377c89fc04482b3ae3615791de">PLSR_RC_RESULT</a>(RESULT) \</div><div class="line">)</div><div class="ttc" id="types_8h_html_ab24bbd89333fa29f521bcde7cca4c1de"><div class="ttname"><a href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_ARCHIVE_TYPE(ARCHIVE_TYPE)</div><div class="ttdoc">Shortcut to get an archive enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:19</div></div>
+<div class="ttc" id="types_8h_html_ab3a2cbecd5f893c8bb88b69d085059d1"><div class="ttname"><a href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a></div><div class="ttdeci">#define PLSR_RC_MAKE_RAW(ARCHIVE, CATEGORY, RESULT)</div><div class="ttdoc">Make a result code from raw integers. </div><div class="ttdef"><b>Definition:</b> types.h:22</div></div>
+<div class="ttc" id="types_8h_html_a2b59e1864d4e426686f15441639fb5a5"><div class="ttname"><a href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_CATEGORY_TYPE(ARCHIVE_TYPE, CATEGORY_TYPE)</div><div class="ttdoc">Shortcut to get a category enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:17</div></div>
+<div class="ttc" id="types_8h_html_abc8f95377c89fc04482b3ae3615791de"><div class="ttname"><a href="types_8h.html#abc8f95377c89fc04482b3ae3615791de">PLSR_RC_RESULT</a></div><div class="ttdeci">#define PLSR_RC_RESULT(RESULT)</div><div class="ttdoc">Extract the result type part of a result code. </div><div class="ttdef"><b>Definition:</b> types.h:43</div></div>
 </div><!-- fragment -->
 <p>Convert a result code to another archive and category, keeping the result type. </p>
 <dl class="section note"><dt>Note</dt><dd>This is mainly meant to convert errors from generic archive read calls into the callee archive and category type </dd></dl>
@@ -269,9 +272,9 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">    const <a class="code" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a> _rc = (X); \</div><div class="line">    if(<a class="code" href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a>(_rc)) { <span class="keywordflow">return</span> <a class="code" href="types_8h.html#ac4878d7db23db2a45dcafe62da31dd01">PLSR_RC_CONVERT</a>(_rc, ARCHIVE_TYPE, CATEGORY_TYPE); } \</div><div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>)</div><div class="ttc" id="types_8h_html_ac4878d7db23db2a45dcafe62da31dd01"><div class="ttname"><a href="types_8h.html#ac4878d7db23db2a45dcafe62da31dd01">PLSR_RC_CONVERT</a></div><div class="ttdeci">#define PLSR_RC_CONVERT(RESULT, NEW_ARCHIVE_TYPE, NEW_CATEGORY_TYPE)</div><div class="ttdoc">Convert a result code to another archive and category, keeping the result type. </div><div class="ttdef"><b>Definition:</b> types.h:46</div></div>
-<div class="ttc" id="types_8h_html_a3927bd979162d13d7f8db012b4feda8b"><div class="ttname"><a href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a></div><div class="ttdeci">#define PLSR_RC_FAILED(RESULT)</div><div class="ttdoc">Test that the result code means failure. </div><div class="ttdef"><b>Definition:</b> types.h:33</div></div>
-<div class="ttc" id="types_8h_html_a80bfe3062bcd080714a0b30055d03be5"><div class="ttname"><a href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a></div><div class="ttdeci">u32 PLSR_RC</div><div class="ttdoc">Result code returned by Pulsar functions. </div><div class="ttdef"><b>Definition:</b> types.h:72</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">    const <a class="code" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a> _rc = (X); \</div><div class="line">    if(<a class="code" href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a>(_rc)) { <span class="keywordflow">return</span> <a class="code" href="types_8h.html#ac4878d7db23db2a45dcafe62da31dd01">PLSR_RC_CONVERT</a>(_rc, ARCHIVE_TYPE, CATEGORY_TYPE); } \</div><div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>)</div><div class="ttc" id="types_8h_html_ac4878d7db23db2a45dcafe62da31dd01"><div class="ttname"><a href="types_8h.html#ac4878d7db23db2a45dcafe62da31dd01">PLSR_RC_CONVERT</a></div><div class="ttdeci">#define PLSR_RC_CONVERT(RESULT, NEW_ARCHIVE_TYPE, NEW_CATEGORY_TYPE)</div><div class="ttdoc">Convert a result code to another archive and category, keeping the result type. </div><div class="ttdef"><b>Definition:</b> types.h:47</div></div>
+<div class="ttc" id="types_8h_html_a3927bd979162d13d7f8db012b4feda8b"><div class="ttname"><a href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a></div><div class="ttdeci">#define PLSR_RC_FAILED(RESULT)</div><div class="ttdoc">Test that the result code means failure. </div><div class="ttdef"><b>Definition:</b> types.h:34</div></div>
+<div class="ttc" id="types_8h_html_a80bfe3062bcd080714a0b30055d03be5"><div class="ttname"><a href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a></div><div class="ttdeci">u32 PLSR_RC</div><div class="ttdoc">Result code returned by Pulsar functions. </div><div class="ttdef"><b>Definition:</b> types.h:73</div></div>
 </div><!-- fragment -->
 <p>Return result code if failed, also converts result to a new archive and category. </p>
 <dl class="section note"><dt>Note</dt><dd>This is mainly meant to convert errors from generic archive read calls into the callee archive and category type </dd></dl>
@@ -309,10 +312,10 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a>( \</div><div class="line">    <a class="code" href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a>(ARCHIVE_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a>(ARCHIVE_TYPE, CATEGORY_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#ae04cf0a1af7bec8e4bedf13ab77f845a">PLSR_RC_MAKE_RESULT_TYPE</a>(RESULT_TYPE) \</div><div class="line">)</div><div class="ttc" id="types_8h_html_ab24bbd89333fa29f521bcde7cca4c1de"><div class="ttname"><a href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_ARCHIVE_TYPE(ARCHIVE_TYPE)</div><div class="ttdoc">Shortcut to get an archive enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:18</div></div>
-<div class="ttc" id="types_8h_html_ab3a2cbecd5f893c8bb88b69d085059d1"><div class="ttname"><a href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a></div><div class="ttdeci">#define PLSR_RC_MAKE_RAW(ARCHIVE, CATEGORY, RESULT)</div><div class="ttdoc">Make a result code from raw integers. </div><div class="ttdef"><b>Definition:</b> types.h:21</div></div>
-<div class="ttc" id="types_8h_html_a2b59e1864d4e426686f15441639fb5a5"><div class="ttname"><a href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_CATEGORY_TYPE(ARCHIVE_TYPE, CATEGORY_TYPE)</div><div class="ttdoc">Shortcut to get a category enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:16</div></div>
-<div class="ttc" id="types_8h_html_ae04cf0a1af7bec8e4bedf13ab77f845a"><div class="ttname"><a href="types_8h.html#ae04cf0a1af7bec8e4bedf13ab77f845a">PLSR_RC_MAKE_RESULT_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_RESULT_TYPE(RESULT_TYPE)</div><div class="ttdoc">Shortcut to get a result type enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:14</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a>( \</div><div class="line">    <a class="code" href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a>(ARCHIVE_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a>(ARCHIVE_TYPE, CATEGORY_TYPE), \</div><div class="line">    <a class="code" href="types_8h.html#ae04cf0a1af7bec8e4bedf13ab77f845a">PLSR_RC_MAKE_RESULT_TYPE</a>(RESULT_TYPE) \</div><div class="line">)</div><div class="ttc" id="types_8h_html_ab24bbd89333fa29f521bcde7cca4c1de"><div class="ttname"><a href="types_8h.html#ab24bbd89333fa29f521bcde7cca4c1de">PLSR_RC_MAKE_ARCHIVE_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_ARCHIVE_TYPE(ARCHIVE_TYPE)</div><div class="ttdoc">Shortcut to get an archive enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:19</div></div>
+<div class="ttc" id="types_8h_html_ab3a2cbecd5f893c8bb88b69d085059d1"><div class="ttname"><a href="types_8h.html#ab3a2cbecd5f893c8bb88b69d085059d1">PLSR_RC_MAKE_RAW</a></div><div class="ttdeci">#define PLSR_RC_MAKE_RAW(ARCHIVE, CATEGORY, RESULT)</div><div class="ttdoc">Make a result code from raw integers. </div><div class="ttdef"><b>Definition:</b> types.h:22</div></div>
+<div class="ttc" id="types_8h_html_a2b59e1864d4e426686f15441639fb5a5"><div class="ttname"><a href="types_8h.html#a2b59e1864d4e426686f15441639fb5a5">PLSR_RC_MAKE_CATEGORY_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_CATEGORY_TYPE(ARCHIVE_TYPE, CATEGORY_TYPE)</div><div class="ttdoc">Shortcut to get a category enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:17</div></div>
+<div class="ttc" id="types_8h_html_ae04cf0a1af7bec8e4bedf13ab77f845a"><div class="ttname"><a href="types_8h.html#ae04cf0a1af7bec8e4bedf13ab77f845a">PLSR_RC_MAKE_RESULT_TYPE</a></div><div class="ttdeci">#define PLSR_RC_MAKE_RESULT_TYPE(RESULT_TYPE)</div><div class="ttdoc">Shortcut to get a result type enum from its name. </div><div class="ttdef"><b>Definition:</b> types.h:15</div></div>
 </div><!-- fragment -->
 <p>Make a result code from archive, category and result type names. </p>
 
@@ -349,7 +352,7 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">    if(R_FAILED(NX_RESULT)) { <span class="keywordflow">return</span> <a class="code" href="types_8h.html#a2fb50a9f6d265092f9ee1317f36bf0bf">PLSR_RC_MAKE</a>(ARCHIVE_TYPE, CATEGORY_TYPE, System); } \</div><div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>)</div><div class="ttc" id="types_8h_html_a2fb50a9f6d265092f9ee1317f36bf0bf"><div class="ttname"><a href="types_8h.html#a2fb50a9f6d265092f9ee1317f36bf0bf">PLSR_RC_MAKE</a></div><div class="ttdeci">#define PLSR_RC_MAKE(ARCHIVE_TYPE, CATEGORY_TYPE, RESULT_TYPE)</div><div class="ttdoc">Make a result code from archive, category and result type names. </div><div class="ttdef"><b>Definition:</b> types.h:24</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">    if(R_FAILED(NX_RESULT)) { <span class="keywordflow">return</span> <a class="code" href="types_8h.html#a2fb50a9f6d265092f9ee1317f36bf0bf">PLSR_RC_MAKE</a>(ARCHIVE_TYPE, CATEGORY_TYPE, System); } \</div><div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>)</div><div class="ttc" id="types_8h_html_a2fb50a9f6d265092f9ee1317f36bf0bf"><div class="ttname"><a href="types_8h.html#a2fb50a9f6d265092f9ee1317f36bf0bf">PLSR_RC_MAKE</a></div><div class="ttdeci">#define PLSR_RC_MAKE(ARCHIVE_TYPE, CATEGORY_TYPE, RESULT_TYPE)</div><div class="ttdoc">Make a result code from archive, category and result type names. </div><div class="ttdef"><b>Definition:</b> types.h:25</div></div>
 </div><!-- fragment -->
 <p>Return a System type result code if the libnx result failed. </p>
 <dl class="section note"><dt>Note</dt><dd>This is mainly used in the player when calling the audio renderer </dd></dl>
@@ -371,8 +374,8 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">    const <a class="code" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a> _rc = (X); \</div><div class="line">    if(<a class="code" href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a>(_rc)) { <span class="keywordflow">return</span> _rc; } \</div><div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>)</div><div class="ttc" id="types_8h_html_a3927bd979162d13d7f8db012b4feda8b"><div class="ttname"><a href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a></div><div class="ttdeci">#define PLSR_RC_FAILED(RESULT)</div><div class="ttdoc">Test that the result code means failure. </div><div class="ttdef"><b>Definition:</b> types.h:33</div></div>
-<div class="ttc" id="types_8h_html_a80bfe3062bcd080714a0b30055d03be5"><div class="ttname"><a href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a></div><div class="ttdeci">u32 PLSR_RC</div><div class="ttdoc">Result code returned by Pulsar functions. </div><div class="ttdef"><b>Definition:</b> types.h:72</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { \</div><div class="line">    const <a class="code" href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a> _rc = (X); \</div><div class="line">    if(<a class="code" href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a>(_rc)) { <span class="keywordflow">return</span> _rc; } \</div><div class="line">} <span class="keywordflow">while</span>(<span class="keyword">false</span>)</div><div class="ttc" id="types_8h_html_a3927bd979162d13d7f8db012b4feda8b"><div class="ttname"><a href="types_8h.html#a3927bd979162d13d7f8db012b4feda8b">PLSR_RC_FAILED</a></div><div class="ttdeci">#define PLSR_RC_FAILED(RESULT)</div><div class="ttdoc">Test that the result code means failure. </div><div class="ttdef"><b>Definition:</b> types.h:34</div></div>
+<div class="ttc" id="types_8h_html_a80bfe3062bcd080714a0b30055d03be5"><div class="ttname"><a href="types_8h.html#a80bfe3062bcd080714a0b30055d03be5">PLSR_RC</a></div><div class="ttdeci">u32 PLSR_RC</div><div class="ttdoc">Result code returned by Pulsar functions. </div><div class="ttdef"><b>Definition:</b> types.h:73</div></div>
 </div><!-- fragment -->
 <p>Return result code if failed. </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="example01-simple_8c-example.html#a2">example01-simple.c</a>, and <a class="el" href="example02-browse_8c-example.html#a2">example02-browse.c</a>.</dd>
@@ -403,6 +406,8 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a5b015619ee20252e9b57c75a081bde40ab8846695aa0d84b2c2da50e957c6529f"></a>PLSR_ArchiveType_BFWAR&#160;</td><td class="fielddoc"><p>Wave archive. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a5b015619ee20252e9b57c75a081bde40a8b5db0eccdfb85895ac5c0ed6132d2c2"></a>PLSR_ArchiveType_BFWAV&#160;</td><td class="fielddoc"><p>Wave file. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a5b015619ee20252e9b57c75a081bde40a49c1e428afadc72065dc9e9b3cfa7368"></a>PLSR_ArchiveType_BFSTM&#160;</td><td class="fielddoc"><p>Stream file. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a5b015619ee20252e9b57c75a081bde40a1ab205d0231d287825f78400396836b7"></a>PLSR_ArchiveType_Player&#160;</td><td class="fielddoc"><p>Not an archive, type used by Player functions. </p>
 </td></tr>
@@ -449,7 +454,7 @@ Enumerations</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 19 2021 11:56:52 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 1 2021 11:34:58 for Pulsar by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
